@@ -28,9 +28,9 @@ priny(aclass.a)
 
 object GetLessons : UseCase<UseCase.RequestValue, GetLessons.ResponseValue>() {
 
-    var lessonRepositoryService: LessonRepositoryContract = LessonRepositoryService
+    var lessonRepositoryService : LessonRepositoryContract = LessonRepositoryService
 
-    override fun executeUseCase(requestValue: UseCase.RequestValue) {
+    override fun executeUseCase(requestValue : UseCase.RequestValue) {
 
         val lessons : List<Lesson> = lessonRepositoryService.getLessons()
         val responseValue = ResponseValue(lessons)
