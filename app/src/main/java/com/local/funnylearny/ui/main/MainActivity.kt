@@ -8,6 +8,7 @@ import com.local.funnylearny.addFragment
 import com.local.funnylearny.domain.model.lesson.Lesson
 import com.local.funnylearny.ui.lesson.LessonListFragment
 import com.local.funnylearny.domain.model.part.Part
+import com.local.funnylearny.ui.base.FragmentReferences
 import com.local.funnylearny.ui.part.PartListFragment
 
 class MainActivity : AppCompatActivity() ,
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() ,
     }
 
     override fun onLessonListItemClicked(lesson: Lesson) {
-        addFragment(R.id.fragment_container, PartListFragment.newInstance(), PartListFragment.TAG)
+        addFragment(R.id.fragment_container, PartListFragment.newInstance(lessonName = lesson.name), PartListFragment.TAG)
     }
 
     override fun onNavigationIconClickedListener() {
@@ -33,10 +34,14 @@ class MainActivity : AppCompatActivity() ,
     }
 
     override fun onPartListItemClicked(part: Part) {
+       FragmentReferences.selectFragment(this,part.partType)
+    }
+
+    internal fun openWordArrangementFragment() {
         addFragment(
-            R.id.fragment_container,
-            WordArrangementFragment.newInstance(),
-            WordArrangementFragment.TAG
+                R.id.fragment_container,
+                WordArrangementFragment.newInstance(),
+                WordArrangementFragment.TAG
         )
     }
 

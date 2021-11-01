@@ -24,7 +24,7 @@ object PartLocalRepositoryService : PartLocalRepositoryContract {
                 (0 until partJSONArray.length()).forEach { i ->
                     var partJSONObject = partJSONArray.getJSONObject(i)
                     var partId = partJSONObject.getString(AppConstants.PartConstants.PART_ID)
-                    var partType = partJSONObject.getString(AppConstants.PartConstants.PART_TYPE)
+                    var partType = partJSONObject.getInt(AppConstants.PartConstants.PART_TYPE)
                     var partStatus = partJSONObject.getInt(AppConstants.PartConstants.PART_STATUS)
                     var partMisc = partJSONObject.getString(AppConstants.PartConstants.PART_MISC)
                     val part = Part(partId, partType, partStatus, partMisc)

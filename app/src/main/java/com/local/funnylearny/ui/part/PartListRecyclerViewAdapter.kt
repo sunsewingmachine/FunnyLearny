@@ -9,6 +9,7 @@ import com.google.android.material.card.MaterialCardView
 
 import com.local.funnylearny.ui.placeholder.PlaceholderContent.PlaceholderItem
 import com.local.funnylearny.databinding.PartListItemBinding
+import com.local.funnylearny.domain.model.lesson.Lesson
 import com.local.funnylearny.domain.model.part.Part
 
 /**
@@ -16,9 +17,9 @@ import com.local.funnylearny.domain.model.part.Part
  * TODO: Replace the implementation with code for your data type.
  */
 class PartListRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>,
-    private val parts : List<Part>,
-    private val onPartListItemClickListener: OnPartListItemClickListener
+        private val values: List<PlaceholderItem>,
+        private val parts: List<Part>,
+        private val onPartListItemClickListener: OnPartListItemClickListener
 ) : RecyclerView.Adapter<PartListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
