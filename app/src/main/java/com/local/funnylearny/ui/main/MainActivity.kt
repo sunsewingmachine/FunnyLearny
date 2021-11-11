@@ -10,15 +10,19 @@ import com.local.funnylearny.ui.lesson.LessonListFragment
 import com.local.funnylearny.domain.model.part.Part
 import com.local.funnylearny.ui.base.FragmentReferences
 import com.local.funnylearny.ui.part.PartListFragment
+import com.local.funnylearny.ui.quiz.QuizFragment
 
 class MainActivity : AppCompatActivity() ,
     LessonListFragment.LessonListFragmentInteractionListener,
-    PartListFragment.PartListFragmentInteractionListener {
+    PartListFragment.PartListFragmentInteractionListener,
+    QuizFragment.QuizFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        openLessonListFragment()
+        if(savedInstanceState == null) {
+            openLessonListFragment()
+        }
     }
 
     private fun openLessonListFragment() {
@@ -43,6 +47,11 @@ class MainActivity : AppCompatActivity() ,
                 WordArrangementFragment.newInstance(),
                 WordArrangementFragment.TAG
         )
+    }
+
+    fun openQuizFragment(){
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container,QuizFragment.newInstance(),"QuizFragment")
+            .addToBackStack("QuizFragment").commit()
     }
 
     override fun onBackPressed() {

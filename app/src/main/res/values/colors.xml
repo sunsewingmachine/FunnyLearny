@@ -4,8 +4,12 @@
     <color name="colorPrimaryDark">#F0F8FB</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorSurface">@color/white</color>
+    <color name="colorBackground">#FFF</color>
     <color name="sentenceTextColor">#FFC107</color>
     <color name="wordButtonColor">#F44336</color>
     <color name="white">#FFF</color>
     <color name="strokeColor">#ACABAB</color>
+    <color name="red">#94FA5C5C</color>
+    <color name="green">#BE71EC76</color>
+    <color name="alertDialogButtonColor">#101010</color>
 </resources>

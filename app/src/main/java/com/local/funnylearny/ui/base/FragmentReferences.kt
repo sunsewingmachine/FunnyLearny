@@ -9,12 +9,12 @@ object FragmentReferences {
         when(type) {
 
             WORD_ARRANGEMENT -> activity.openWordArrangementFragment()
-
+            QUIZ -> activity.openQuizFragment()
         }
 
     }
 
 
     const val WORD_ARRANGEMENT = 101
-
+    const val QUIZ = 108
 }

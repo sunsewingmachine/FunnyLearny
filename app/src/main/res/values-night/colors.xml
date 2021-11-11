@@ -3,8 +3,10 @@
     <color name="colorPrimaryDark">#5A5A5A</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorSurface">#434242</color>
+    <color name="colorBackground">#000</color>
     <color name="sentenceTextColor">#FFC107</color>
     <color name="wordButtonColor">#F44336</color>
     <color name="white">#FFF</color>
     <color name="strokeColor">#ACABAB</color>
+    <color name="alertDialogButtonColor">#F8F7F7</color>
 </resources>
