@@ -1,12 +1,18 @@
 package com.local.funnylearny.ui.matchpairs
 
+import android.animation.Animator
+import android.animation.AnimatorSet
 import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.base.FragmentInteractionListener
@@ -141,12 +147,15 @@ class MatchPairsFragment : Fragment() {
 
     var matchPairListAnswerEntryCount: Int = 0
     private val onAnswerClickListener = object : AnswerRecyclerViewAdapter.OnAnswerClickListener {
-        override fun onAnswerClickedItem(answer: String) {
+        override fun onAnswerClickedItem(view : View ,answer: String) {
             for (index in 0 until matchPairList.size) {
                 val matchPair = matchPairList[index]
                 if (matchPair.answer == null) {
                     matchPair.answer = answer
-                    (matchPairsTableRecyclerView.adapter as MatchPairsTableRecyclerViewAdapter).changeToNormalView(index+1)
+                    shuttleTextView.text = answer
+                    var toView = matchPairsTableRecyclerView.layoutManager?.findViewByPosition(index+1)!!
+                    toView = (toView as ConstraintLayout).findViewById<TextView>(R.id.answerTextView)
+                    doMoveAnimation(view,toView,matchPairRootView,shuttleView,index)
                     break
                 }
             }
@@ -164,6 +173,38 @@ class MatchPairsFragment : Fragment() {
             matchPairListAnswerEntryCount--
             (answersRecyclerView.adapter as AnswerRecyclerViewAdapter).swapData(answer)
         }
+    }
+
+    fun doMoveAnimation(fromView: View, toView: View, rootView: View, shuttleView: View,index : Int) {
+
+        val fromRect = Rect()
+        val toRect = Rect()
+        fromView.getGlobalVisibleRect(fromRect)
+        toView.getGlobalVisibleRect(toRect)
+        val animatorSet: AnimatorSet = MatchPairUtil.getViewToViewScalingAnimator(
+            rootView,
+            shuttleView,
+            fromRect,
+            toRect,
+            500,
+            0
+        )
+        animatorSet.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                shuttleView.visibility = View.VISIBLE
+                fromView.visibility = View.INVISIBLE
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                shuttleView.visibility = View.GONE
+                fromView.visibility = View.VISIBLE
+                (matchPairsTableRecyclerView.adapter as MatchPairsTableRecyclerViewAdapter).changeToNormalView(index+1)
+            }
+
+            override fun onAnimationCancel(animation: Animator) {}
+            override fun onAnimationRepeat(animation: Animator) {}
+        })
+        animatorSet.start()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -61,7 +61,6 @@ class MatchPairsTableRecyclerViewAdapter(
         notifyItemChanged(position)
     }
 
-
     override fun getItemCount(): Int = matchPairList.size+1
 
     inner class ViewHolder (binding: MatchpairsTableListItemBinding) : RecyclerView.ViewHolder(binding.root) {

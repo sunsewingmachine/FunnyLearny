@@ -15,7 +15,6 @@ import com.local.funnylearny.ui.placeholder.PlaceholderContent.PlaceholderItem
  * TODO: Replace the implementation with code for your data type.
  */
 class LessonListRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>,
     private val lessons : List<Lesson>,
     private val onLessonListItemClickListener: OnLessonListItemClickListener
 ) : RecyclerView.Adapter<LessonListRecyclerViewAdapter.ViewHolder>() {
@@ -33,7 +32,6 @@ class LessonListRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
         val lesson = lessons[position]
         holder.lessonName.text = lesson.name
         holder.itemView.tag = lesson

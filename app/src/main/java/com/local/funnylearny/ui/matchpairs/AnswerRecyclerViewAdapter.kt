@@ -49,7 +49,7 @@ class AnswerRecyclerViewAdapter(
         if(questionsCount != answers.size) {
             val answer = it.tag as Pair<*, *>
             answers.remove(answer.first)
-            onAnswerClickListener.onAnswerClickedItem(answer.first as String)
+            onAnswerClickListener.onAnswerClickedItem(it,answer.first as String)
             notifyDataSetChanged()
         }
     }
@@ -60,6 +60,6 @@ class AnswerRecyclerViewAdapter(
     }
 
     interface OnAnswerClickListener {
-       fun onAnswerClickedItem(answer : String)
+       fun onAnswerClickedItem(view: View,answer : String)
     }
 }

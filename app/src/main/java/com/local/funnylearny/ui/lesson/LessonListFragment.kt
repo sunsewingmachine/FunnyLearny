@@ -68,7 +68,6 @@ class LessonListFragment : Fragment() {
                         else -> GridLayoutManager(context, columnCount)
                     }
                 lessonRecyclerView.adapter =  LessonListRecyclerViewAdapter(
-                    PlaceholderContent.ITEMS,
                     (it as LessonListViewModel.LessonListViewStateLiveData).lessons,
                     onLessonListItemClickListener
                 )

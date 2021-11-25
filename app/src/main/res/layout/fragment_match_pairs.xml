@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/matchPairRootView"
     android:background="@color/colorBackground"
     tools:context=".ui.matchpairs.MatchPairsFragment">
 
@@ -54,5 +55,17 @@
         android:text="@string/submit"
         android:textColor="@color/alertDialogButtonColor"/>
         <!--android:visibility="gone" />-->
+
+    <FrameLayout
+        android:id="@+id/shuttleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/shuttleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
