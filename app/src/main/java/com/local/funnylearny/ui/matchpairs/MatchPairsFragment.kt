@@ -38,6 +38,7 @@ class MatchPairsFragment : Fragment() {
     private var removeMatchPairList = ArrayList<MatchPair>()
     private var answers = ArrayList<String>()
     private var correctAnswers = ArrayList<String>()
+    private var checkAnswers = ArrayList<Int>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,6 +63,8 @@ class MatchPairsFragment : Fragment() {
             answers = savedInstanceState.getStringArrayList(ANSWERS)!!
             matchPairList = savedInstanceState.getParcelableArrayList<MatchPair>(MATCH_PAIRS) as ArrayList<MatchPair>
             matchPairListAnswerEntryCount = savedInstanceState.getInt(MATCH_PAIR_LIST_ANSWER_ENTRY_COUNT)
+            checkAnswers = savedInstanceState.getIntegerArrayList(CHECK_ANSWERS) as ArrayList<Int>
+            correctAnswers = savedInstanceState.getStringArrayList(CORRECT_ANSWERS)!!
             adapterAttachment()
             tableAdapterAttachment()
         }
@@ -76,6 +79,7 @@ class MatchPairsFragment : Fragment() {
         matchPairList.forEach {
             answers.add(it.answer!!)
             if(it.question != null) {
+                checkAnswers.add(1)
                 correctAnswers.add(it.answer!!)
             } else {
                 removeMatchPairList.add(it)
@@ -95,12 +99,16 @@ class MatchPairsFragment : Fragment() {
         matchPairList.forEachIndexed { index, matchPair ->
             if(correctAnswers[index] != matchPair.answer) {
                 areAllAnswersCorrect = false
+                checkAnswers[index] = 0
             }
         }
+
+        (matchPairsTableRecyclerView.adapter as MatchPairsTableRecyclerViewAdapter).swapCheckAnswersData(checkAnswers)
 
         if(areAllAnswersCorrect) {
             Toast.makeText(requireContext(),"All answers are correct",Toast.LENGTH_SHORT).show()
         } else {
+
             Toast.makeText(requireContext(),"All answers are not correct",Toast.LENGTH_SHORT).show()
         }
 
@@ -118,7 +126,9 @@ class MatchPairsFragment : Fragment() {
     private fun tableAdapterAttachment(){
         matchPairsTableRecyclerView.layoutManager = LinearLayoutManager(context)
         matchPairsTableRecyclerView.adapter = MatchPairsTableRecyclerViewAdapter(
+            requireContext(),
             matchPairList,
+            checkAnswers,
             onMatchPairAnswerClickListener
         )
     }
@@ -136,9 +146,7 @@ class MatchPairsFragment : Fragment() {
                 val matchPair = matchPairList[index]
                 if (matchPair.answer == null) {
                     matchPair.answer = answer
-                    (matchPairsTableRecyclerView.adapter as MatchPairsTableRecyclerViewAdapter).notifyItemChanged(
-                        index + 1
-                    )
+                    (matchPairsTableRecyclerView.adapter as MatchPairsTableRecyclerViewAdapter).changeToNormalView(index+1)
                     break
                 }
             }
@@ -163,6 +171,9 @@ class MatchPairsFragment : Fragment() {
         outState.putStringArrayList(ANSWERS,answers)
         outState.putParcelableArrayList(MATCH_PAIRS,matchPairList)
         outState.putInt(MATCH_PAIR_LIST_ANSWER_ENTRY_COUNT,matchPairListAnswerEntryCount)
+        outState.putIntegerArrayList(CHECK_ANSWERS,checkAnswers)
+        outState.putStringArrayList(CORRECT_ANSWERS,correctAnswers)
+
     }
 
     interface MatchPairsInteractionListener : FragmentInteractionListener{
@@ -177,5 +188,7 @@ class MatchPairsFragment : Fragment() {
         const val ANSWERS = "answers"
         const val MATCH_PAIRS = "matchPairs"
         const val MATCH_PAIR_LIST_ANSWER_ENTRY_COUNT = "matchPairListAnswerEntryCount"
+        const val CHECK_ANSWERS = "checkAnswers"
+        const val CORRECT_ANSWERS = "correctAnswers"
     }
 }
