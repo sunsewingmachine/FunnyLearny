@@ -9,13 +9,15 @@ import com.local.funnylearny.domain.model.lesson.Lesson
 import com.local.funnylearny.ui.lesson.LessonListFragment
 import com.local.funnylearny.domain.model.part.Part
 import com.local.funnylearny.ui.base.FragmentReferences
+import com.local.funnylearny.ui.matchpairs.MatchPairsFragment
 import com.local.funnylearny.ui.part.PartListFragment
 import com.local.funnylearny.ui.quiz.QuizFragment
 
 class MainActivity : AppCompatActivity() ,
     LessonListFragment.LessonListFragmentInteractionListener,
     PartListFragment.PartListFragmentInteractionListener,
-    QuizFragment.QuizFragmentInteractionListener{
+    QuizFragment.QuizFragmentInteractionListener,
+    MatchPairsFragment.MatchPairsInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +51,20 @@ class MainActivity : AppCompatActivity() ,
         )
     }
 
-    fun openQuizFragment(){
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container,QuizFragment.newInstance(),"QuizFragment")
-            .addToBackStack("QuizFragment").commit()
+    internal fun openQuizFragment(){
+        addFragment(
+            R.id.fragment_container,
+            QuizFragment.newInstance(),
+            QuizFragment.TAG
+        )
+    }
+
+    internal fun openMatchPairsFragment(){
+        addFragment(
+            R.id.fragment_container,
+            MatchPairsFragment.newInstance(),
+            MatchPairsFragment.TAG
+        )
     }
 
     override fun onBackPressed() {

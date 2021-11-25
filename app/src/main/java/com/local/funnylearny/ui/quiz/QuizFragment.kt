@@ -1,7 +1,6 @@
 package com.local.funnylearny.ui.quiz
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -11,14 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.base.FragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import java.lang.IllegalArgumentException
-import android.content.DialogInterface
-
-import android.content.DialogInterface.OnShowListener
 
 class QuizFragment : Fragment() {
 
@@ -59,24 +54,24 @@ class QuizFragment : Fragment() {
             questionTextView.text = question
             commandTextView.text = command
             ruleTextView.text = rule
-            option1TextView.text = option1
-            option2TextView.text = option2
-            option3TextView.text = option3
-            option4TextView.text = option4
+            optionOneTextView.text = optionOne
+            optionTwoTextView.text = optionTwo
+            optionThreeTextView.text = optionThree
+            optionFourTextView.text = optionFour
         }
-        option1CardView.setOnClickListener {
+        optionOneCardView.setOnClickListener {
             changePropertyOfClickedOption(previousSelectedOption,1,quizObject)
             showAlertDialog(1,quizObject)
         }
-        option2CardView.setOnClickListener {
+        optionTwoCardView.setOnClickListener {
             changePropertyOfClickedOption(previousSelectedOption,2,quizObject)
             showAlertDialog(2,quizObject)
         }
-        option3CardView.setOnClickListener {
+        optionThreeCardView.setOnClickListener {
             changePropertyOfClickedOption(previousSelectedOption,3,quizObject)
             showAlertDialog(3,quizObject)
         }
-        option4CardView.setOnClickListener {
+        optionFourCardView.setOnClickListener {
             changePropertyOfClickedOption(previousSelectedOption,4,quizObject)
             showAlertDialog(4,quizObject)
         }
@@ -120,14 +115,14 @@ class QuizFragment : Fragment() {
             currentOptionCardView.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.green
+                    R.color.correctAnswer
                 )
             )
         } else {
             currentOptionCardView.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.red
+                    R.color.wrongAnswer
                 )
             )
         }
@@ -139,35 +134,35 @@ class QuizFragment : Fragment() {
 
     private fun getQuizOption(currentSelectedOption: Int,quiz: Quiz) : String {
         return when(currentSelectedOption) {
-            1 -> quiz.option1
-            2 -> quiz.option2
-            3 -> quiz.option3
-            else -> quiz.option4
+            1 -> quiz.optionOne
+            2 -> quiz.optionTwo
+            3 -> quiz.optionThree
+            else -> quiz.optionFour
         }
     }
 
     private fun getOptionReason(currentSelectedOption: Int,quiz: Quiz) : String {
         return when(currentSelectedOption) {
-            1 -> quiz.reason1
-            2 -> quiz.reason2
-            3 -> quiz.reason3
-            else -> quiz.reason4
+            1 -> quiz.reasonOne
+            2 -> quiz.reasonTwo
+            3 -> quiz.reasonThree
+            else -> quiz.reasonFour
         }
     }
 
     private fun getOptionCardView(option : Int) : MaterialCardView {
         return when(option) {
             1 -> {
-                option1CardView
+                optionOneCardView
             }
             2 -> {
-                option2CardView
+                optionTwoCardView
             }
             3 -> {
-                option3CardView
+                optionThreeCardView
             }
             else -> {
-                option4CardView
+                optionFourCardView
             }
         }
     }
@@ -175,7 +170,7 @@ class QuizFragment : Fragment() {
     interface QuizFragmentInteractionListener : FragmentInteractionListener
 
     companion object {
-
+        const val TAG = "QuizFragment"
         fun newInstance() = QuizFragment()
     }
 }

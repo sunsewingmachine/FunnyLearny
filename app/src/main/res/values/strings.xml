@@ -4,4 +4,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ui_label_lessons">Lessons</string>
     <string name="ui_label_parts">Parts</string>
+    <string name="ui_label_quiz">Quiz</string>
+    <string name="ui_label_matchPairs">MatchPairs</string>
+    <string name="submit">Submit</string>
+    <string name="header_questions">Question</string>
+    <string name="header_answer">Answer</string>
 </resources>

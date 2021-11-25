@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_round_arrow_back_24"
-                app:title="Quiz" />
+                app:title="@string/ui_label_quiz" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -80,18 +80,18 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/option1CardView"
+                    android:id="@+id/optionOneCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="4dp"
                     android:minHeight="48dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#2C1C1717"
+                    app:strokeColor="@color/strokeColor"
                     app:strokeWidth="1dp">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/option1TextView"
+                            android:id="@+id/optionOneTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center"
@@ -101,18 +101,18 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/option2CardView"
+                    android:id="@+id/optionTwoCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="4dp"
                     android:minHeight="48dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#2C1C1717"
+                    app:strokeColor="@color/strokeColor"
                     app:strokeWidth="1dp">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/option2TextView"
+                            android:id="@+id/optionTwoTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center"
@@ -122,18 +122,18 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/option3CardView"
+                    android:id="@+id/optionThreeCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="4dp"
                     android:minHeight="48dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#2C1C1717"
+                    app:strokeColor="@color/strokeColor"
                     app:strokeWidth="1dp">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/option3TextView"
+                            android:id="@+id/optionThreeTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center"
@@ -143,18 +143,18 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/option4CardView"
+                    android:id="@+id/optionFourCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="4dp"
                     android:minHeight="48dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#2C1C1717"
+                    app:strokeColor="@color/strokeColor"
                     app:strokeWidth="1dp">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/option4TextView"
+                            android:id="@+id/optionFourTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center"

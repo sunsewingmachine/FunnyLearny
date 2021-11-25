@@ -10,6 +10,7 @@ object FragmentReferences {
 
             WORD_ARRANGEMENT -> activity.openWordArrangementFragment()
             QUIZ -> activity.openQuizFragment()
+            MATCHPAIRS -> activity.openMatchPairsFragment()
         }
 
     }
@@ -17,4 +18,5 @@ object FragmentReferences {
 
     const val WORD_ARRANGEMENT = 101
     const val QUIZ = 108
+    const val MATCHPAIRS = 234
 }

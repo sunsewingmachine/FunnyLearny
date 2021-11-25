@@ -52,7 +52,7 @@ class PartListRecyclerViewAdapter(
     }
 
     val partListItemClickListener = View.OnClickListener {
-        val part = it.tag as Part
+        val part = it.tag as Part                                        //typecasting
         onPartListItemClickListener.onPartListItemClicked(part)
     }
 
