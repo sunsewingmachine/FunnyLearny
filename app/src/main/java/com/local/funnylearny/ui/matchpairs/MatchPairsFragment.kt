@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +22,8 @@ import kotlin.collections.ArrayList
 class MatchPairsFragment : Fragment() {
 
     var matchPairsInteractionListener : MatchPairsInteractionListener? = null
-
+    var matchPairsTableRecyclerViewAdapter : MatchPairsTableRecyclerViewAdapter? = null
+    var answerRecyclerViewAdapter : AnswerRecyclerViewAdapter? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(context is MatchPairsInteractionListener){
@@ -109,7 +109,7 @@ class MatchPairsFragment : Fragment() {
             }
         }
 
-        (matchPairsTableRecyclerView.adapter as MatchPairsTableRecyclerViewAdapter).swapCheckAnswersData(checkAnswers)
+        matchPairsTableRecyclerViewAdapter?.swapCheckAnswersData(checkAnswers)
 
         if(areAllAnswersCorrect) {
             Toast.makeText(requireContext(),"All answers are correct",Toast.LENGTH_SHORT).show()
@@ -122,21 +122,23 @@ class MatchPairsFragment : Fragment() {
 
     private fun adapterAttachment(){
         answersRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
-        answersRecyclerView.adapter = AnswerRecyclerViewAdapter(
+        answerRecyclerViewAdapter = AnswerRecyclerViewAdapter(
             answers = answers,
             onAnswerClickListener = onAnswerClickListener,
             questionsCount = (answers.size - (matchPairList.size - matchPairListAnswerEntryCount))
         )
+        answersRecyclerView.adapter = answerRecyclerViewAdapter
     }
 
     private fun tableAdapterAttachment(){
         matchPairsTableRecyclerView.layoutManager = LinearLayoutManager(context)
-        matchPairsTableRecyclerView.adapter = MatchPairsTableRecyclerViewAdapter(
+        matchPairsTableRecyclerViewAdapter = MatchPairsTableRecyclerViewAdapter(
             requireContext(),
             matchPairList,
             checkAnswers,
             onMatchPairAnswerClickListener
         )
+        matchPairsTableRecyclerView.adapter = matchPairsTableRecyclerViewAdapter
     }
 
     private fun initToolbar(){
@@ -154,8 +156,12 @@ class MatchPairsFragment : Fragment() {
                     matchPair.answer = answer
                     shuttleTextView.text = answer
                     var toView = matchPairsTableRecyclerView.layoutManager?.findViewByPosition(index+1)!!
-                    toView = (toView as ConstraintLayout).findViewById<TextView>(R.id.answerTextView)
-                    doMoveAnimation(view,toView,matchPairRootView,shuttleView,index)
+                    toView = (toView as ConstraintLayout).findViewById<TextView>(R.id.answerContainerView)
+                    doMoveAnimation(view,toView,matchPairRootView,shuttleView,object : OnAnimationEndListener {
+                        override fun onAnimationEnd() {
+                            matchPairsTableRecyclerViewAdapter?.changeToNormalView(index + 1)
+                        }
+                    },false)
                     break
                 }
             }
@@ -165,18 +171,27 @@ class MatchPairsFragment : Fragment() {
         }
     }
 
-    private val onMatchPairAnswerClickListener = object :
-
-        MatchPairsTableRecyclerViewAdapter.OnMatchPairAnswerClickListener{
-
-        override fun onMatchPairAnswerClicked(answer: String) {
+    private val onMatchPairAnswerClickListener = object : MatchPairsTableRecyclerViewAdapter.OnMatchPairAnswerClickListener{
+        override fun onMatchPairAnswerClicked(view: View,answer: String) {
             matchPairListAnswerEntryCount--
-            (answersRecyclerView.adapter as AnswerRecyclerViewAdapter).swapData(answer)
+            val toView = answersRecyclerView.layoutManager?.findViewByPosition(0) as View
+            shuttleTextView.text = answer
+            doMoveAnimation(view,toView,matchPairRootView,shuttleView,object : OnAnimationEndListener {
+                override fun onAnimationEnd() {
+                    answerRecyclerViewAdapter?.swapData(answer)
+                }
+            },true)
         }
     }
 
-    fun doMoveAnimation(fromView: View, toView: View, rootView: View, shuttleView: View,index : Int) {
-
+    fun doMoveAnimation(
+        fromView: View,
+        toView: View,
+        rootView: View,
+        shuttleView: View,
+        onAnimationEndListener: OnAnimationEndListener,
+        isBackAnimation : Boolean
+    ) {
         val fromRect = Rect()
         val toRect = Rect()
         fromView.getGlobalVisibleRect(fromRect)
@@ -187,7 +202,8 @@ class MatchPairsFragment : Fragment() {
             fromRect,
             toRect,
             500,
-            0
+            0,
+            isBackAnimation
         )
         animatorSet.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
@@ -198,13 +214,17 @@ class MatchPairsFragment : Fragment() {
             override fun onAnimationEnd(animation: Animator) {
                 shuttleView.visibility = View.GONE
                 fromView.visibility = View.VISIBLE
-                (matchPairsTableRecyclerView.adapter as MatchPairsTableRecyclerViewAdapter).changeToNormalView(index+1)
+                onAnimationEndListener.onAnimationEnd()
             }
 
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationRepeat(animation: Animator) {}
         })
         animatorSet.start()
+    }
+
+    interface OnAnimationEndListener {
+        fun onAnimationEnd()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -218,7 +238,6 @@ class MatchPairsFragment : Fragment() {
     }
 
     interface MatchPairsInteractionListener : FragmentInteractionListener{
-
        // fun onMatchPairsClickeditem(matchPairs: MatchPairs)
     }
 

@@ -79,14 +79,14 @@ class MatchPairsTableRecyclerViewAdapter(
             if (matchPair.answer != null) {
                 val answer = matchPair.answer
                 matchPair.answer = null
-                notifyDataSetChanged()
-                onMatchPairAnswerClickListener.onMatchPairAnswerClicked(answer!!)
+                notifyItemChanged((it.tag as Int)+1)
+                onMatchPairAnswerClickListener.onMatchPairAnswerClicked(it,answer!!)
             }
         }
     }
 
     interface OnMatchPairAnswerClickListener{
-        fun onMatchPairAnswerClicked(answer : String)
+        fun onMatchPairAnswerClicked(view: View, answer : String)
     }
 
     companion object {

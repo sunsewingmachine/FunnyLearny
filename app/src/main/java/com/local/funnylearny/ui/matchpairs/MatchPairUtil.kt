@@ -17,7 +17,8 @@ object MatchPairUtil {
         fromViewRect: Rect,
         toViewRect: Rect,
         duration: Long,
-        startDelay: Long
+        startDelay: Long,
+        isBackAnimation : Boolean
     ): AnimatorSet {
         // get all coordinates at once
         val parentViewRect = Rect()
@@ -51,16 +52,20 @@ object MatchPairUtil {
 
         val toViewTotalWidth = toViewRect.right - toViewRect.left
         val fromViewTotalWidth = fromViewRect.right - fromViewRect.left
-        val toStartPosition = ((toViewTotalWidth - fromViewTotalWidth)/2 + toViewRect.left)
+        var toStartPosition = ((toViewTotalWidth - fromViewTotalWidth)/2 + toViewRect.left).toFloat()
 
-        val toTopPosition = toViewRect.top
+        toStartPosition =  if(!isBackAnimation) {
+            toStartPosition
+        } else {
+            (toViewRect.left - parentViewRect.left).toFloat()
+        }
 
         // moving of the object on X-axis
         val translateAnimatorX: ObjectAnimator = ObjectAnimator.ofFloat(
             viewToAnimate,
             "X",
             (fromViewRect.left - parentViewRect.left).toFloat(),
-            toStartPosition.toFloat()
+            toStartPosition
         )
 
         // moving of the object on Y-axis
@@ -68,15 +73,13 @@ object MatchPairUtil {
             viewToAnimate,
             "Y",
             (fromViewRect.top - parentViewRect.top).toFloat(),
-            toTopPosition.toFloat()
+            (toViewRect.top - parentViewRect.top).toFloat()
         )
         val animatorSet = AnimatorSet()
         animatorSet.interpolator = DecelerateInterpolator(1f)
         animatorSet.duration = duration // can be decoupled for each animator separately
         animatorSet.startDelay = startDelay // can be decoupled for each animator separately
         animatorSet.playTogether(
-            valueAnimatorWidth,
-            valueAnimatorHeight,
             translateAnimatorX,
             translateAnimatorY
         )

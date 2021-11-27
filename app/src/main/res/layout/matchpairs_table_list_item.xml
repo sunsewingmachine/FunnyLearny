@@ -4,33 +4,49 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="1dp"
+    android:background="@color/tableBackground"
     android:paddingEnd="1dp"
-    android:background="@color/tableBackground">
+    android:paddingBottom="1dp">
 
     <TextView
         android:id="@+id/questionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="16dp"
         android:layout_margin="1dp"
+        android:background="@color/white"
         android:gravity="center"
+        android:padding="16dp"
+        app:layout_constraintEnd_toStartOf="@id/answerContainerView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/answerTextView"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/answerTextView"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/answerContainerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
-        android:padding="16dp"
-        android:gravity="center"
-        app:layout_constraintStart_toEndOf="@id/questionTextView"
+        app:cardCornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/questionTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/questionTextView"
-        app:layout_constraintBottom_toBottomOf="@id/questionTextView"/>
+        app:layout_constraintStart_toEndOf="@id/questionTextView"
+        app:layout_constraintTop_toTopOf="@id/questionTextView">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_card_stroke_drawable">
+
+            <TextView
+                android:id="@+id/answerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp" />
+
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

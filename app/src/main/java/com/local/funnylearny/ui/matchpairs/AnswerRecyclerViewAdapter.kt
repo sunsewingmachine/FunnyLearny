@@ -1,5 +1,6 @@
 package com.local.funnylearny.ui.matchpairs
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +46,8 @@ class AnswerRecyclerViewAdapter(
 
 /*
 * */
-    val answerClickListener = View.OnClickListener {
+@SuppressLint("NotifyDataSetChanged")
+val answerClickListener = View.OnClickListener {
         if(questionsCount != answers.size) {
             val answer = it.tag as Pair<*, *>
             answers.remove(answer.first)
@@ -54,12 +56,13 @@ class AnswerRecyclerViewAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun swapData(answer: String){
         answers.add(0,answer)
         notifyDataSetChanged()
     }
 
     interface OnAnswerClickListener {
-       fun onAnswerClickedItem(view: View,answer : String)
+       fun  onAnswerClickedItem(view: View,answer : String)
     }
 }
