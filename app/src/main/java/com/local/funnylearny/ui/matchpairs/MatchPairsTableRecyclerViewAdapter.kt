@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.local.funnylearny.R
 import com.local.funnylearny.databinding.MatchpairsTableListItemBinding
 import java.util.ArrayList
@@ -34,22 +35,29 @@ class MatchPairsTableRecyclerViewAdapter(
 
         if (position == 0){
             holder.questionTextView.text = QUESTION
-            holder.answerTextView.text = ANSWER
-            holder.answerTextView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorBackground))
+            holder.answerButton.text = ANSWER
+            (holder.answerButton as MaterialButton).strokeWidth = 0
+            holder.answerButton.setBackgroundColor(ContextCompat.getColor(context,R.color.colorBackground))
         } else {
-            val matchPairsList = matchPairList[position-1]
-            holder.questionTextView.text = matchPairsList.question
-            holder.answerTextView.text = matchPairsList.answer
-            holder.answerTextView.tag = position-1
-            if(checkAnswerList[position-1] == 1 ) {
-                holder.answerTextView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorBackground))
+            val matchPair = matchPairList[position-1]
+            holder.questionTextView.text = matchPair.question
+            holder.answerButton.text = matchPair.answer
+
+            holder.answerButton.tag = position-1
+            if(checkAnswerList[position-1] == 1) {
+                holder.answerButton.setBackgroundColor(ContextCompat.getColor(context,R.color.colorBackground))
             } else {
-                holder.answerTextView.setBackgroundColor(ContextCompat.getColor(context,R.color.wrongAnswer))
+                holder.answerButton.setBackgroundColor(ContextCompat.getColor(context,R.color.wrongAnswer))
+            }
+
+            if(matchPair.answer == null) {
+                (holder.answerButton as MaterialButton).strokeWidth = 0
+                holder.answerButton.setBackgroundColor(ContextCompat.getColor(context,R.color.colorBackground))
+            } else {
+                (holder.answerButton as MaterialButton).strokeWidth = context.resources.getDimension(R.dimen.stroke_width).toInt()
             }
         }
-
     }
-
 
     internal fun swapCheckAnswersData(checkAnswerList: ArrayList<Int>) {
         this.checkAnswerList = checkAnswerList
@@ -66,14 +74,14 @@ class MatchPairsTableRecyclerViewAdapter(
     inner class ViewHolder (binding: MatchpairsTableListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         val questionTextView : TextView = binding.questionTextView
-        val answerTextView : TextView = binding.answerTextView
+        val answerButton : TextView = binding.answerButton
         init {
-            answerTextView.setOnClickListener(matchPairAnswerClickListener)
+            answerButton.setOnClickListener(matchPairAnswerClickListener)
         }
     }
 
     val matchPairAnswerClickListener = View.OnClickListener {
-        it as TextView
+        it as MaterialButton
         if( it.text != ANSWER) {
             val matchPair = matchPairList[it.tag as Int]
             if (matchPair.answer != null) {

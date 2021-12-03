@@ -13,5 +13,6 @@
     <color name="correctAnswer">#BE71EC76</color>
     <color name="alertDialogButtonColor">#101010</color>
     <color name="tableBackground">#77182222</color>
+    <color name="textColor">#000</color>
 
 </resources>

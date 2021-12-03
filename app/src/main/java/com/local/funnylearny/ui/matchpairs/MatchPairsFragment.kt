@@ -18,6 +18,10 @@ import com.local.funnylearny.ui.base.FragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_match_pairs.*
 import java.lang.IllegalArgumentException
 import kotlin.collections.ArrayList
+import android.animation.ObjectAnimator
+
+
+
 
 class MatchPairsFragment : Fragment() {
 
@@ -61,6 +65,7 @@ class MatchPairsFragment : Fragment() {
             matchPairList.add(MatchPair(null, "IOB BANK"))
 
             prepareAnswerList()
+            answers.shuffle()
             removeExtraAnswers()
 
             adapterAttachment()
@@ -156,7 +161,7 @@ class MatchPairsFragment : Fragment() {
                     matchPair.answer = answer
                     shuttleTextView.text = answer
                     var toView = matchPairsTableRecyclerView.layoutManager?.findViewByPosition(index+1)!!
-                    toView = (toView as ConstraintLayout).findViewById<TextView>(R.id.answerContainerView)
+                    toView = (toView as ConstraintLayout).findViewById<TextView>(R.id.answerButton)
                     doMoveAnimation(view,toView,matchPairRootView,shuttleView,object : OnAnimationEndListener {
                         override fun onAnimationEnd() {
                             matchPairsTableRecyclerViewAdapter?.changeToNormalView(index + 1)
@@ -174,9 +179,12 @@ class MatchPairsFragment : Fragment() {
     private val onMatchPairAnswerClickListener = object : MatchPairsTableRecyclerViewAdapter.OnMatchPairAnswerClickListener{
         override fun onMatchPairAnswerClicked(view: View,answer: String) {
             matchPairListAnswerEntryCount--
-            val toView = answersRecyclerView.layoutManager?.findViewByPosition(0) as View
+            val toView = (answersRecyclerView.layoutManager as LinearLayoutManager).let {
+                val position = it.findFirstCompletelyVisibleItemPosition()
+                it.findViewByPosition(position)
+            }
             shuttleTextView.text = answer
-            doMoveAnimation(view,toView,matchPairRootView,shuttleView,object : OnAnimationEndListener {
+            doMoveAnimation(view,toView!!,matchPairRootView,shuttleView,object : OnAnimationEndListener {
                 override fun onAnimationEnd() {
                     answerRecyclerViewAdapter?.swapData(answer)
                 }
