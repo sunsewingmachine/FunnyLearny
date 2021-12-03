@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.wordarrange.WordArrangementFragment
-import com.local.funnylearny.addFragment
+import com.local.funnylearny.ui.base.addFragment
 import com.local.funnylearny.domain.model.lesson.Lesson
 import com.local.funnylearny.ui.lesson.LessonListFragment
 import com.local.funnylearny.domain.model.part.Part
