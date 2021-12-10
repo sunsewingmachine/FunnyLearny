@@ -10,10 +10,9 @@ import androidx.core.content.ContextCompat
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_funny_learny.*
-import java.util.*
 import android.content.Context
-import androidx.transition.TransitionManager
 import com.local.funnylearny.R
+import com.local.funnylearny.ui.util.AnimationUtil
 
 
 /**
@@ -38,20 +37,8 @@ class WordArrangementFragment : Fragment() {
         val inputString = "I am,from,a,village,in,tamilnadu,india,asia"
         val words = inputString.split(",")
 
-        //initRandomRecyclerView(words)
-
         setSentenceTextView(words)
         generateWordButtons(words)
-
-    }
-
-    /*private fun initRandomRecyclerView(words: List<String>) {
-        randomRecyclerView.layoutManager = StaggeredGridLayoutManager(3,LinearLayoutManager.VERTICAL)
-        randomRecyclerView.adapter = WordsRecyclerViewAdapter(requireContext(),words)
-    }*/
-
-
-    private fun initArrangedRecyclerView(words: List<String>) {
 
     }
 
@@ -65,13 +52,59 @@ class WordArrangementFragment : Fragment() {
 
 
     private fun generateWordButtons(words : List<String>) {
-            Collections.shuffle(words)
-            words.forEachIndexed { index, word ->
-                addWordButton(requireContext(),word,index)
+            words.shuffled()
+            words.forEachIndexed { _, word ->
+                addWordButton(requireContext(),word)
             }
     }
 
-    private fun addWordButton(context : Context, word : String, index : Int) {
+    private fun addWordButton(context : Context, word : String) {
+
+        val wordButton = getButton(context,word)
+
+        wordButton.setOnClickListener {
+            val isFromRandomContainer = it.tag as Boolean
+            if(isFromRandomContainer) {
+                val toView = if(arrangeWordsContainer.childCount == 0) {
+                    arrangeWordsContainer
+                } else {
+                    arrangeWordsContainer.getChildAt(arrangeWordsContainer.childCount-1)
+                }
+                AnimationUtil.wordArrangmentMoveAnimation(
+                    it,
+                    toView,
+                    rootLayout,
+                    shuttleButton,
+                    object : AnimationUtil.OnAnimationEndListener {
+                    override fun onAnimationEnd() {
+                        randomWordsContainer.removeView(it)
+                        arrangeWordsContainer.addView(it)
+                        it.tag = false
+                    }
+                },false)
+            } else {
+
+                val toView = if(randomWordsContainer.childCount == 0) {
+                    randomWordsContainer
+                } else {
+                    randomWordsContainer.getChildAt(randomWordsContainer.childCount-1)
+                }
+                AnimationUtil.wordArrangmentMoveAnimation(
+                    it,
+                    toView,
+                    rootLayout,shuttleButton, object : AnimationUtil.OnAnimationEndListener {
+                    override fun onAnimationEnd() {
+                        arrangeWordsContainer.removeView(it)
+                        randomWordsContainer.addView(it)
+                        it.tag = true
+                    }
+                },true)
+            }
+        }
+        randomWordsContainer.addView(wordButton)
+    }
+
+    private fun getButton(context: Context,word : String) : MaterialButton {
         val wordButton = MaterialButton(context)
         wordButton.text = word
         wordButton.setBackgroundColor(
@@ -81,7 +114,7 @@ class WordArrangementFragment : Fragment() {
             )
         )
         wordButton.setTextColor(Color.WHITE)
-        wordButton.cornerRadius = 32
+        wordButton.cornerRadius = context.resources.getDimension(R.dimen.cardview_default_radius).toInt()
         val lp = FlexboxLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -89,24 +122,7 @@ class WordArrangementFragment : Fragment() {
         lp.setMargins(20, 20, 20, 20)
         wordButton.layoutParams = lp
         wordButton.tag = true
-
-        wordButton.setOnClickListener {
-            val isFromRandomContainer = it.tag as Boolean
-            if(isFromRandomContainer) {
-                TransitionManager.beginDelayedTransition(randomWordsContainer)
-                randomWordsContainer.removeView(it)
-                TransitionManager.beginDelayedTransition(arrangeWordsContainer)
-                arrangeWordsContainer.addView(it)
-                it.tag = false
-            } else {
-                TransitionManager.beginDelayedTransition(randomWordsContainer)
-                arrangeWordsContainer.removeView(it)
-                TransitionManager.beginDelayedTransition(arrangeWordsContainer)
-                randomWordsContainer.addView(it)
-                it.tag = true
-            }
-        }
-        randomWordsContainer.addView(wordButton)
+        return wordButton
     }
 
     companion object {

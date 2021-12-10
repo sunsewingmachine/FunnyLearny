@@ -25,7 +25,7 @@ class QuizFragment : Fragment() {
         if (context is QuizFragmentInteractionListener){
             quizFragmentInteractionListener = context
         } else {
-            throw IllegalArgumentException("PartListFragmentInteractionListener is not implemented in respective activity")
+            throw IllegalArgumentException("QuizFragmentInteractionListener is not implemented in respective activity")
         }
     }
 
@@ -78,7 +78,7 @@ class QuizFragment : Fragment() {
     }
 
     private fun initToolbar(){
-        quizToolBar.setOnClickListener {
+        quizToolBar.setNavigationOnClickListener {
             quizFragmentInteractionListener?.onNavigationIconClickedListener()
         }
     }

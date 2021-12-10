@@ -1,9 +1,6 @@
 package com.local.funnylearny.ui.matchpairs
 
-import android.animation.Animator
-import android.animation.AnimatorSet
 import android.content.Context
-import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,13 +12,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.base.FragmentInteractionListener
+import com.local.funnylearny.ui.util.AnimationUtil
+import com.local.funnylearny.ui.util.AnimationUtil.doMoveAnimation
 import kotlinx.android.synthetic.main.fragment_match_pairs.*
 import java.lang.IllegalArgumentException
 import kotlin.collections.ArrayList
-import android.animation.ObjectAnimator
-
-
-
 
 class MatchPairsFragment : Fragment() {
 
@@ -33,7 +28,7 @@ class MatchPairsFragment : Fragment() {
         if(context is MatchPairsInteractionListener){
             matchPairsInteractionListener = context
         } else {
-            throw IllegalArgumentException("PartListFragmentInteractionListener is not implemented in respective activity")
+            throw IllegalArgumentException("MatchPairFragmentInteractionListener is not implemented in respective activity")
         }
     }
     override fun onCreateView(
@@ -161,8 +156,9 @@ class MatchPairsFragment : Fragment() {
                     matchPair.answer = answer
                     shuttleTextView.text = answer
                     var toView = matchPairsTableRecyclerView.layoutManager?.findViewByPosition(index+1)!!
-                    toView = (toView as ConstraintLayout).findViewById<TextView>(R.id.answerButton)
-                    doMoveAnimation(view,toView,matchPairRootView,shuttleView,object : OnAnimationEndListener {
+                    toView = (toView as ConstraintLayout).findViewById<TextView>(R.id.answerContainerView)
+                    doMoveAnimation(view,toView,matchPairRootView,shuttleView,object :
+                        AnimationUtil.OnAnimationEndListener {
                         override fun onAnimationEnd() {
                             matchPairsTableRecyclerViewAdapter?.changeToNormalView(index + 1)
                         }
@@ -184,55 +180,13 @@ class MatchPairsFragment : Fragment() {
                 it.findViewByPosition(position)
             }
             shuttleTextView.text = answer
-            doMoveAnimation(view,toView!!,matchPairRootView,shuttleView,object : OnAnimationEndListener {
+            doMoveAnimation(view,toView!!,matchPairRootView,shuttleView,object :
+                AnimationUtil.OnAnimationEndListener {
                 override fun onAnimationEnd() {
                     answerRecyclerViewAdapter?.swapData(answer)
                 }
             },true)
         }
-    }
-
-    fun doMoveAnimation(
-        fromView: View,
-        toView: View,
-        rootView: View,
-        shuttleView: View,
-        onAnimationEndListener: OnAnimationEndListener,
-        isBackAnimation : Boolean
-    ) {
-        val fromRect = Rect()
-        val toRect = Rect()
-        fromView.getGlobalVisibleRect(fromRect)
-        toView.getGlobalVisibleRect(toRect)
-        val animatorSet: AnimatorSet = MatchPairUtil.getViewToViewScalingAnimator(
-            rootView,
-            shuttleView,
-            fromRect,
-            toRect,
-            500,
-            0,
-            isBackAnimation
-        )
-        animatorSet.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-                shuttleView.visibility = View.VISIBLE
-                fromView.visibility = View.INVISIBLE
-            }
-
-            override fun onAnimationEnd(animation: Animator) {
-                shuttleView.visibility = View.GONE
-                fromView.visibility = View.VISIBLE
-                onAnimationEndListener.onAnimationEnd()
-            }
-
-            override fun onAnimationCancel(animation: Animator) {}
-            override fun onAnimationRepeat(animation: Animator) {}
-        })
-        animatorSet.start()
-    }
-
-    interface OnAnimationEndListener {
-        fun onAnimationEnd()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

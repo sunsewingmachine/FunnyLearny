@@ -1,43 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:background="@color/colorSurface"
-    android:animateLayoutChanges="true">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/sentenceTextView"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/wordArrangeAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/wordArrangeToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_round_arrow_back_24"
+            app:title="@string/ui_label_arrange_words" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSurface"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/sentenceTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/sentenceTextColor"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/arrangeWordsContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/arrangeWordsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            app:flexWrap="wrap"
+            android:background="@color/strokeColor"
+            app:layout_constraintBottom_toTopOf="@id/randomWordsContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sentenceTextView" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/randomWordsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            app:flexWrap="wrap"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/arrangeWordsContainer" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/checkNowButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/sentenceTextColor"
-        android:textSize="20sp"
-        android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/arrangeWordsContainer" />
+        android:text="@string/check_now"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/wordButtonColor"
+        android:layout_gravity="bottom|center"/>
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/arrangeWordsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        app:flexWrap="wrap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/randomWordsContainer"
-        app:layout_constraintTop_toBottomOf="@id/sentenceTextView"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/shuttleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/wordButtonColor"
+        android:textColor="@color/white" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/randomWordsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        app:flexWrap="wrap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/arrangeWordsContainer"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

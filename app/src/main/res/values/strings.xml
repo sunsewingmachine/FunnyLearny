@@ -6,6 +6,9 @@
     <string name="ui_label_parts">Parts</string>
     <string name="ui_label_quiz">Quiz</string>
     <string name="ui_label_matchPairs">MatchPairs</string>
+    <string name="ui_label_arrange_words">Arrange Words</string>
+    <string name="ui_label_learningEnglish">Learning English</string>
+    <string name="check_now">CheckNow</string>
     <string name="submit">Submit</string>
     <string name="header_questions">Question</string>
     <string name="header_answer">Answer</string>
