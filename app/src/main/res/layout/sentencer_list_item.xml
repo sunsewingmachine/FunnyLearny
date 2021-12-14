@@ -10,29 +10,31 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/speakerImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_round_volume_up_24"
         android:layout_margin="8dp"
+        android:background="@color/colorBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/wordTextView"
+            android:id="@+id/wordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintStart_toEndOf="@id/speakerImage"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/equalImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
             android:src="@drawable/ic_baseline_drag_handle_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,19 +42,20 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/meaningTextView"
+            android:id="@+id/meaningText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintStart_toEndOf="@id/equalImage"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/infoImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:background="@color/colorBackground"
             android:src="@drawable/ic_baseline_info_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

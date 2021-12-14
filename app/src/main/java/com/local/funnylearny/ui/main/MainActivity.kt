@@ -9,7 +9,7 @@ import com.local.funnylearny.domain.model.lesson.Lesson
 import com.local.funnylearny.ui.lesson.LessonListFragment
 import com.local.funnylearny.domain.model.part.Part
 import com.local.funnylearny.ui.base.FragmentReferences
-import com.local.funnylearny.ui.learningenglish.LearningEnglishFragment
+import com.local.funnylearny.ui.sentencer.SentencerFragment
 import com.local.funnylearny.ui.matchpairs.MatchPairsFragment
 import com.local.funnylearny.ui.part.PartListFragment
 import com.local.funnylearny.ui.quiz.QuizFragment
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() ,
     PartListFragment.PartListFragmentInteractionListener,
     QuizFragment.QuizFragmentInteractionListener,
     MatchPairsFragment.MatchPairsInteractionListener,
-    LearningEnglishFragment.LearningEnglishFragmentInteractionListener{
+    SentencerFragment.SentencerFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,11 +69,11 @@ class MainActivity : AppCompatActivity() ,
         )
     }
 
-    internal fun openLearningEnglishFragment(){
+    internal fun openSentencerFragment(){
         addFragment(
             R.id.fragment_container,
-            LearningEnglishFragment.newInstance(),
-            LearningEnglishFragment.TAG
+            SentencerFragment.newInstance(),
+            SentencerFragment.TAG
         )
     }
 

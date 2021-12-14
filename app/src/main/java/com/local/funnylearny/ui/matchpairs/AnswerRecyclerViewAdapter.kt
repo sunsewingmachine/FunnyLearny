@@ -12,7 +12,7 @@ import com.local.funnylearny.ui.matchpairs.AnswerRecyclerViewAdapter.*
 import java.util.ArrayList
 
 
-class AnswerRecyclerViewAdapter(
+class  AnswerRecyclerViewAdapter(
     val answers : ArrayList<String>,
     private val onAnswerClickListener: OnAnswerClickListener,
     private var questionsCount : Int

@@ -11,7 +11,7 @@ object FragmentReferences {
             WORD_ARRANGEMENT -> activity.openWordArrangementFragment()
             QUIZ -> activity.openQuizFragment()
             MATCH_PAIRS -> activity.openMatchPairsFragment()
-            LEARNING_ENGLISH -> activity.openLearningEnglishFragment()
+            SENTENCER -> activity.openSentencerFragment()
         }
 
     }
@@ -20,5 +20,5 @@ object FragmentReferences {
     private const val WORD_ARRANGEMENT = 101
     private const val QUIZ = 108
     private const val MATCH_PAIRS = 234
-    private const val LEARNING_ENGLISH  = 204
+    private const val SENTENCER  = 204
 }

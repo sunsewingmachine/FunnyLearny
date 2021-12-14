@@ -7,7 +7,7 @@
     android:background="@color/colorBackground"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.learningenglish.LearningEnglishFragment">
+    tools:context=".ui.sentencer.SentencerFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/learningEnglishAppBarLayout"
@@ -15,11 +15,11 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/learningEnglishToolBar"
+            android:id="@+id/sentencerToolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
-            app:title="@string/ui_label_learningEnglish"/>
+            app:title="@string/ui_label_sentencer"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -28,12 +28,19 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/learningEnglishRecyclerView"
+            android:id="@+id/sentencerRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"/>
 
     </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/bottomSpeaker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:src="@drawable/ic_round_volume_up_24"/>
 
 
 
