@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator
 import android.graphics.Rect
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.button.MaterialButton
 
 object AnimationUtil {
@@ -17,7 +16,7 @@ object AnimationUtil {
         rootView: View,
         shuttleView: View,
         onAnimationEndListener: OnAnimationEndListener,
-        isBackAnimation : Boolean
+        isBackAnimation: Boolean
     ) {
         val fromRect = Rect()
         val toRect = Rect()
@@ -53,7 +52,7 @@ object AnimationUtil {
         viewToAnimate: View,
         fromViewRect: Rect,
         toViewRect: Rect,
-        isBackAnimation : Boolean
+        isBackAnimation: Boolean
     ): AnimatorSet {
 
         // get all coordinates at once
@@ -66,9 +65,10 @@ object AnimationUtil {
 
         val toViewTotalWidth = toViewRect.right - toViewRect.left
         val fromViewTotalWidth = fromViewRect.right - fromViewRect.left
-        var toStartPosition = ((toViewTotalWidth - fromViewTotalWidth)/2 + toViewRect.left).toFloat()
+        var toStartPosition =
+            ((toViewTotalWidth - fromViewTotalWidth) / 2 + toViewRect.left).toFloat()
 
-        toStartPosition =  if(!isBackAnimation) {
+        toStartPosition = if (!isBackAnimation) {
             toStartPosition
         } else {
             (toViewRect.left - parentViewRect.left).toFloat()
@@ -106,7 +106,7 @@ object AnimationUtil {
         rootView: View,
         shuttleView: View,
         onAnimationEndListener: OnAnimationEndListener,
-        isBackAnimation : Boolean
+        isBackAnimation: Boolean
     ) {
 
         val animatorSet: AnimatorSet = getViewToViewScalingWordAnimator(
@@ -138,8 +138,8 @@ object AnimationUtil {
         parentView: View,
         viewToAnimate: View,
         fromView: View,
-        toView : View,
-        isBackAnimation : Boolean
+        toView: View,
+        isBackAnimation: Boolean
     ): AnimatorSet {
 
         val fromRect = Rect()
@@ -155,10 +155,21 @@ object AnimationUtil {
         viewToAnimate.scaleX = 1f
         viewToAnimate.scaleY = 1f
 
-        val toPosition = if(toView is MaterialButton) {
-            toRect.right + 48
+        var toStartPosition = if (toView is MaterialButton) {
+            toRect.right + 42
         } else {
-            (toRect.left - parentViewRect.left).toFloat()
+            toRect.left + 20
+        }
+
+        var toTopPosition = if (toView is MaterialButton) {
+            (toRect.top - parentViewRect.top)
+        } else {
+            (toRect.top - parentViewRect.top) + 24
+        }
+
+        if ((toStartPosition + viewToAnimate.width) > parentViewRect.right) {
+            toStartPosition = parentViewRect.left + 64
+            toTopPosition += toView.height + 42
         }
 
         // moving of the object on X-axis
@@ -166,7 +177,7 @@ object AnimationUtil {
             viewToAnimate,
             "X",
             (fromRect.left - parentViewRect.left).toFloat(),
-            toPosition.toFloat()
+            toStartPosition.toFloat()
         )
 
         // moving of the object on Y-axis
@@ -174,7 +185,7 @@ object AnimationUtil {
             viewToAnimate,
             "Y",
             (fromRect.top - parentViewRect.top).toFloat(),
-            (toRect.top - parentViewRect.top).toFloat()
+            toTopPosition.toFloat()
         )
         val animatorSet = AnimatorSet()
         animatorSet.interpolator = DecelerateInterpolator(1f)

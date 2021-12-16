@@ -70,6 +70,7 @@ class WordArrangementFragment : Fragment() {
                 } else {
                     arrangeWordsContainer.getChildAt(arrangeWordsContainer.childCount-1)
                 }
+                shuttleButton.text = word
                 AnimationUtil.wordArrangmentMoveAnimation(
                     it,
                     toView,
@@ -89,6 +90,7 @@ class WordArrangementFragment : Fragment() {
                 } else {
                     randomWordsContainer.getChildAt(randomWordsContainer.childCount-1)
                 }
+                shuttleButton.text = word
                 AnimationUtil.wordArrangmentMoveAnimation(
                     it,
                     toView,
@@ -114,7 +116,7 @@ class WordArrangementFragment : Fragment() {
             )
         )
         wordButton.setTextColor(Color.WHITE)
-        wordButton.cornerRadius = context.resources.getDimension(R.dimen.cardview_default_radius).toInt()
+        wordButton.cornerRadius = context.resources.getDimension(R.dimen.dimen_4dp).toInt()
         val lp = FlexboxLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
