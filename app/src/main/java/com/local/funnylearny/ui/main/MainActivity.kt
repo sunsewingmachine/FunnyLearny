@@ -11,6 +11,7 @@ import com.local.funnylearny.domain.model.part.Part
 import com.local.funnylearny.ui.base.FragmentReferences
 import com.local.funnylearny.ui.sentencer.SentencerFragment
 import com.local.funnylearny.ui.matchpairs.MatchPairsFragment
+import com.local.funnylearny.ui.meaningcontest.MeaningContestFragment
 import com.local.funnylearny.ui.part.PartListFragment
 import com.local.funnylearny.ui.quiz.QuizFragment
 
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity() ,
     PartListFragment.PartListFragmentInteractionListener,
     QuizFragment.QuizFragmentInteractionListener,
     MatchPairsFragment.MatchPairsInteractionListener,
-    SentencerFragment.SentencerFragmentInteractionListener{
+    SentencerFragment.SentencerFragmentInteractionListener,
+    MeaningContestFragment.MeaningContestFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +78,15 @@ class MainActivity : AppCompatActivity() ,
             SentencerFragment.TAG
         )
     }
+
+    internal fun openMeaningContestFragment(){
+        addFragment(
+            R.id.fragment_container,
+            MeaningContestFragment.newInstance(),
+            MeaningContestFragment.TAG
+        )
+    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

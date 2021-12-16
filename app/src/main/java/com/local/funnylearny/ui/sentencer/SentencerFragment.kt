@@ -2,7 +2,9 @@ package com.local.funnylearny.ui.sentencer
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,19 +20,15 @@ import kotlinx.android.synthetic.main.sentencer_list_item.*
 import java.lang.IllegalArgumentException
 import java.util.*
 import kotlin.collections.ArrayList
-import android.R.attr.name
-import android.speech.tts.UtteranceProgressListener
 
 
-class SentencerFragment : Fragment(), TextToSpeech.OnInitListener {
+class SentencerFragment : Fragment() {
 
     private var sentencerFragmentInteractionListener : SentencerFragmentInteractionListener? = null
     private var tts : TextToSpeech? = null
     private var wordTextView : TextView? = null
     private var meaningTextView : TextView? = null
     private var speakerImageView : ImageView? = null
-    private lateinit var utterParam : HashMap<String, String>
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(context is SentencerFragmentInteractionListener){
@@ -48,31 +46,31 @@ class SentencerFragment : Fragment(), TextToSpeech.OnInitListener {
         return inflater.inflate(R.layout.fragment_sentencer, container, false)
     }
 
-    private val sentencer = ArrayList<Sentencer>()
+    private val sentencerList = ArrayList<Sentencer>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
-        sentencer.add(Sentencer("How?","எப்படி","something"))
-        sentencer.add(Sentencer("is?","", "something"))
-        sentencer.add(Sentencer("your?","உங்கள்","something"))
-        sentencer.add(Sentencer("name?","பெயர்?","something"))
-        sentencer.add(Sentencer("daddy","தந்தை","something"))
-        sentencer.add(Sentencer("now?","இப்போது?","something"))
+        sentencerList.add(Sentencer("How?","எப்படி","something"))
+        sentencerList.add(Sentencer("is?","", "something"))
+        sentencerList.add(Sentencer("your?","உங்கள்","something"))
+        sentencerList.add(Sentencer("name?","பெயர்?","something"))
+        sentencerList.add(Sentencer("daddy","தந்தை","something"))
+        sentencerList.add(Sentencer("now?","இப்போது?","something"))
         adapterAttachment()
         speakerImageView = this.speakerImage
         wordTextView = this.wordText
         meaningTextView = this.meaningText
-        tts = TextToSpeech(requireContext(),this)
+        tts = TextToSpeech(requireContext(),{})
 
         bottomSpeaker.setOnClickListener{
-           speakOutAll()
+           prepareDataAndSpeakOutAll(sentencerList)
         }
     }
 
     private fun adapterAttachment(){
         sentencerRecyclerView.layoutManager = LinearLayoutManager(context)
-        sentencerRecyclerView.adapter = SentencerRecyclerViewAdapter(sentencer, onSpeakerImageClicked)
+        sentencerRecyclerView.adapter = SentencerRecyclerViewAdapter(sentencerList, onSpeakerImageClicked)
     }
 
     private fun initToolbar(){
@@ -83,58 +81,65 @@ class SentencerFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private var onSpeakerImageClicked = object : SentencerRecyclerViewAdapter.OnSpeakerImageClickListener{
         override fun onSpeakerImageClicked(sentencer: Sentencer) {
-            speakOut(sentencer)
+            val arrayList = ArrayList<String>()
+            arrayList.add(sentencer.word)
+            arrayList.add(sentencer.meaning)
+            prepareDataAndSpeakOutAll(arrayList)
         }
 
     }
 
+    private fun prepareDataAndSpeakOutAll(arrayList : ArrayList<*>) {
 
-    override fun onInit(status : Int) {
+        val allWordList = ArrayList<String>()
 
-        utterParam = HashMap<String, String>()
-        utterParam[TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID] = "utterID"
+        val isTamilWord = when {
+            arrayList[0] is String  -> {
+                arrayList.forEach {
+                    it as String
+                    allWordList.add(it)
+                }
+                true
+            }
+            arrayList[0] is Sentencer -> {
+                arrayList.forEach {
+                    it as Sentencer
+                    allWordList.add(it.word)
+                }
+                false
+            }
+            else -> false
+        }
+        speakOutAll(allWordList,isTamilWord)
+    }
 
-        if (status == TextToSpeech.SUCCESS) {
+    private fun speakOutAll(allWordList: ArrayList<String>,isTamilWord: Boolean) {
+        tts!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(p0: String?) {
 
-            val trTR = Locale.Builder().setLanguage("ta").setRegion("IN").build()
-            val result = tts!!.setLanguage(trTR
-            )
-
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS","The Language specified is not supported!")
-            } else {
-                speakerImage!!.isEnabled = true
+            }
+            override fun onDone(p0: String?) {
+                allWordList.removeAt(0)
+                speak(allWordList,isTamilWord)
             }
 
-        } else {
-            Log.e("TTS", "Initilization Failed!")
-        }
+            override fun onError(p0: String?) {
+            }
 
+        })
+        speak(allWordList,false)
     }
 
-    private fun speakOut(sentencer: Sentencer){
-        val text = sentencer.word + " " + sentencer.meaning
-        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH,utterParam)
-    }
-
-    tts.setOnUtteranceProgressListener = object : UtteranceProgressListener(){
-        override fun onStart(p0: String?) {
-            TODO("Not yet implemented")
+    private fun speak(allWordList : ArrayList<String>,isTamilWord : Boolean) {
+        if(allWordList.isNotEmpty()) {
+            val language = if(isTamilWord) {
+                Locale.Builder().setLanguage("ta").setRegion("IN").build()
+            } else {
+                Locale.getDefault()
+            }
+            tts!!.language = language
+            tts!!.speak(allWordList[0], TextToSpeech.QUEUE_FLUSH, null, "")
         }
-
-        override fun onDone(p0: String?) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onError(p0: String?) {
-            TODO("Not yet implemented")
-        }
-
-    }
-
-    private fun speakOutAll(){
-        val text = sentencer.toString()
-        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH,null,"")
     }
 
     override fun onDestroy() {

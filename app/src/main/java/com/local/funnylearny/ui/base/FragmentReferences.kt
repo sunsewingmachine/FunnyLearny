@@ -12,6 +12,7 @@ object FragmentReferences {
             QUIZ -> activity.openQuizFragment()
             MATCH_PAIRS -> activity.openMatchPairsFragment()
             SENTENCER -> activity.openSentencerFragment()
+            MEANING_CONTEST -> activity.openMeaningContestFragment()
         }
 
     }
@@ -21,4 +22,5 @@ object FragmentReferences {
     private const val QUIZ = 108
     private const val MATCH_PAIRS = 234
     private const val SENTENCER  = 204
+    private const val MEANING_CONTEST = 208
 }
