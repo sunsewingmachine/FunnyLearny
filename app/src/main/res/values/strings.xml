@@ -6,11 +6,15 @@
     <string name="ui_label_parts">Parts</string>
     <string name="ui_label_quiz">Quiz</string>
     <string name="ui_label_matchPairs">MatchPairs</string>
+    <string name="ui_label_true_or_false_question">TrueOrFalseQuestion</string>
     <string name="ui_label_arrange_words">Arrange Words</string>
     <string name="ui_label_sentencer">Sentencer</string>
     <string name="ui_label_meaning_contest">Meaning Contest</string>
     <string name="check_now">CheckNow</string>
     <string name="submit">Submit</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="next_button">Next</string>
     <string name="header_questions">Question</string>
     <string name="header_answer">Answer</string>
 </resources>

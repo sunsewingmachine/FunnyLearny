@@ -14,12 +14,14 @@ import com.local.funnylearny.ui.matchpairs.MatchPairsFragment
 import com.local.funnylearny.ui.meaningcontest.MeaningContestFragment
 import com.local.funnylearny.ui.part.PartListFragment
 import com.local.funnylearny.ui.quiz.QuizFragment
+import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestionFragment
 
 class MainActivity : AppCompatActivity() ,
     LessonListFragment.LessonListFragmentInteractionListener,
     PartListFragment.PartListFragmentInteractionListener,
     QuizFragment.QuizFragmentInteractionListener,
     MatchPairsFragment.MatchPairsInteractionListener,
+    TrueOrFalseQuestionFragment.TrueOrFalseQuestionFragmentInteractionListener,
     SentencerFragment.SentencerFragmentInteractionListener,
     MeaningContestFragment.MeaningContestFragmentInteractionListener{
 
@@ -68,6 +70,14 @@ class MainActivity : AppCompatActivity() ,
             R.id.fragment_container,
             MatchPairsFragment.newInstance(),
             MatchPairsFragment.TAG
+        )
+    }
+
+    internal fun openTrueOrFalseQuestionFragment() {
+        addFragment(
+            R.id.fragment_container,
+            TrueOrFalseQuestionFragment.newInstance(),
+            TrueOrFalseQuestionFragment.TAG
         )
     }
 
