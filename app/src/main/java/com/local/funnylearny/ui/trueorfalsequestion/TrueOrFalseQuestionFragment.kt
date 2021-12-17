@@ -2,6 +2,7 @@ package com.local.funnylearny.ui.trueorfalsequestion
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import com.local.funnylearny.ui.base.FragmentInteractionListener
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.android.synthetic.main.fragment_true_or_false_question.*
 import java.lang.IllegalArgumentException
-import java.text.ParsePosition
 
 class TrueOrFalseQuestionFragment : Fragment() {
 
@@ -103,19 +103,18 @@ class TrueOrFalseQuestionFragment : Fragment() {
         cardStackLayoutManager.setStackFrom(StackFrom.Top)
         cardStackLayoutManager.setVisibleCount(4)
         cardStackLayoutManager.setSwipeableMethod(SwipeableMethod.Automatic)
-        trueOrFalseQuestionCardStackView.adapter = CardStackViewAdapter(trueOrFalseQuestionList,object : CardStackViewAdapter.OnTrueOrFalseQuestionAdapterListener {
+        trueOrFalseQuestionCardStackView.adapter = TrueOrFalseQuestionCardStackViewAdapter(trueOrFalseQuestionList,object : TrueOrFalseQuestionCardStackViewAdapter.OnTrueOrFalseQuestionAdapterListener {
             override fun onCorrectAnswerClicked(position: Int) {
                 val setting = SwipeAnimationSetting.Builder()
                     .setDirection(Direction.Left)
-                    .setDuration(Duration.Normal.duration)
+                    .setDuration(Duration.Slow.duration)
                     .setInterpolator(AccelerateInterpolator())
                     .build()
                 cardStackLayoutManager.setSwipeAnimationSetting(setting)
                 trueOrFalseQuestionCardStackView.swipe()
                 answerList.add(1)
-                if(position == trueOrFalseQuestionList.size-1){
-                    requireActivity().supportFragmentManager.popBackStack()
-                    trueOrFalseQuestionFragmentInteractionListener?.onOpenResultFragment(trueOrFalseQuestionList,answerList)
+                if(position == trueOrFalseQuestionList.size-1) {
+                    popBackStackAndOpenResultFragment()
                 }
 
             }
@@ -123,12 +122,21 @@ class TrueOrFalseQuestionFragment : Fragment() {
                 if(position != trueOrFalseQuestionList.size-1) {
                     nextButton.visibility = View.VISIBLE
                 } else {
-                    requireActivity().supportFragmentManager.popBackStack()
-                    trueOrFalseQuestionFragmentInteractionListener?.onOpenResultFragment(trueOrFalseQuestionList,answerList)
+                    popBackStackAndOpenResultFragment()
                 }
                 answerList.add(0)
             }
         })
+    }
+
+    private fun popBackStackAndOpenResultFragment() {
+
+        requireActivity().supportFragmentManager.popBackStack()
+        trueOrFalseQuestionFragmentInteractionListener?.onOpenResultFragment(
+            trueOrFalseQuestionList,
+            answerList
+        )
+
     }
 
     private fun initToolBar() {

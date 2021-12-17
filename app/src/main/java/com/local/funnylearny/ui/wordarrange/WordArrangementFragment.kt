@@ -82,7 +82,7 @@ class WordArrangementFragment : Fragment() {
                         arrangeWordsContainer.addView(it)
                         it.tag = false
                     }
-                },false)
+                },false,context)
             } else {
 
                 val toView = if(randomWordsContainer.childCount == 0) {
@@ -100,7 +100,7 @@ class WordArrangementFragment : Fragment() {
                         randomWordsContainer.addView(it)
                         it.tag = true
                     }
-                },true)
+                },true,context)
             }
         }
         randomWordsContainer.addView(wordButton)
@@ -121,7 +121,8 @@ class WordArrangementFragment : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        lp.setMargins(20, 20, 20, 20)
+
+        lp.setMargins(16, 16, 16,16)
         wordButton.layoutParams = lp
         wordButton.tag = true
         return wordButton

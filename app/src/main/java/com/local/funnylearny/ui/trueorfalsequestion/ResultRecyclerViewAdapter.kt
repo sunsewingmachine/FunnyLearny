@@ -1,15 +1,20 @@
 package com.local.funnylearny.ui.trueorfalsequestion
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.local.funnylearny.R
 import com.local.funnylearny.databinding.ResultListItemBinding
 
-class ResultRecyclerViewAdapter(var trueOrFalseQuestion: ArrayList<TrueOrFalseQuestion>,
-                    var answerList : ArrayList<Int>) : RecyclerView.Adapter<ResultRecyclerViewAdapter.ViewHolder>() {
+class ResultRecyclerViewAdapter(
+    var trueOrFalseQuestion: ArrayList<TrueOrFalseQuestion>,
+    var answerList : ArrayList<Int>
+    ) : RecyclerView.Adapter<ResultRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,24 +29,27 @@ class ResultRecyclerViewAdapter(var trueOrFalseQuestion: ArrayList<TrueOrFalseQu
         )
     }
 
-
-    private var value : Boolean = false
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val trueOrFalseQuestion = trueOrFalseQuestion[position]
         val answer = answerList[position]
-        holder.resultQuestionText.text = trueOrFalseQuestion.question
-        if(answer == 0) {
-            if (trueOrFalseQuestion.answer) {
-                value = false
-                holder.selectedAnswerText.text = "Selected Answer : $value"
+        holder.apply { //remove holders inside apply
+            holder.resultQuestionText.text = trueOrFalseQuestion.question
+            if ((trueOrFalseQuestion.answer && answer == 1) || (!trueOrFalseQuestion.answer && answer == 1)) {
+                holder.selectedAnswerText.text = "Selected Answer : ${trueOrFalseQuestion.answer}"
+            } else {
+                resultReasonLayout.visibility = View.VISIBLE
+                resultReasonText.text = trueOrFalseQuestion.reason
+                holder.selectedAnswerText.text = "Selected Answer : ${!trueOrFalseQuestion.answer}"
             }
-        } else {
-            value = true
-            holder.selectedAnswerText.text = "Selected Answer : $value"
-        }
+            if (answer == 1) {
+                selectedAnswerText.setTextColor(Color.GREEN)
+            } else {
+                selectedAnswerText.setTextColor(Color.RED)
+            }
 
-        holder.resultCorrectAnswer.text = "Correct Answer :" + " " +trueOrFalseQuestion.answer.toString()
+            holder.resultCorrectAnswer.text = "Correct Answer :" + " " + trueOrFalseQuestion.answer.toString()
+        }
     }
 
     override fun getItemCount(): Int = trueOrFalseQuestion.size

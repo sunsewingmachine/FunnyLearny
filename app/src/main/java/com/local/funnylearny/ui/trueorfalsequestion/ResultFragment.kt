@@ -12,7 +12,7 @@ import com.local.funnylearny.ui.base.FragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_result.*
 import java.lang.IllegalArgumentException
 
-class ResultFragment() : Fragment() {
+class ResultFragment : Fragment() {
 
     private var resultFragmentInteractionListener : ResultFragmentInteractionListener? = null
     private lateinit var trueOrFalseQuestionList : ArrayList<TrueOrFalseQuestion>
@@ -25,10 +25,6 @@ class ResultFragment() : Fragment() {
         } else {
             throw IllegalArgumentException("ResultFragmentInteractionListener is not implemented in respective activity")
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

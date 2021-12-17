@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.local.funnylearny.databinding.TrueOrFalseQuestionListItemBinding
 
-class CardStackViewAdapter(
+class TrueOrFalseQuestionCardStackViewAdapter(
     var trueOrFalseQuestion: ArrayList<TrueOrFalseQuestion>,
     private val onTrueOrFalseQuestionAdapterListener: OnTrueOrFalseQuestionAdapterListener
-) : RecyclerView.Adapter<CardStackViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TrueOrFalseQuestionCardStackViewAdapter.ViewHolder>() {
 
     private var isRefreshing = false
 

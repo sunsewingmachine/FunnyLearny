@@ -3,10 +3,12 @@ package com.local.funnylearny.ui.util
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import com.google.android.material.button.MaterialButton
+import com.local.funnylearny.R
 
 object AnimationUtil {
 
@@ -91,7 +93,7 @@ object AnimationUtil {
         )
         val animatorSet = AnimatorSet()
         animatorSet.interpolator = DecelerateInterpolator(1f)
-        animatorSet.duration = 500 // can be decoupled for each animator separately
+        animatorSet.duration = 200 // can be decoupled for each animator separately
         animatorSet.startDelay = 0 // can be decoupled for each animator separately
         animatorSet.playTogether(
             translateAnimatorX,
@@ -106,7 +108,8 @@ object AnimationUtil {
         rootView: View,
         shuttleView: View,
         onAnimationEndListener: OnAnimationEndListener,
-        isBackAnimation: Boolean
+        isBackAnimation: Boolean,
+        context: Context
     ) {
 
         val animatorSet: AnimatorSet = getViewToViewScalingWordAnimator(
@@ -114,7 +117,8 @@ object AnimationUtil {
             shuttleView,
             fromView,
             toView,
-            isBackAnimation
+            isBackAnimation,
+            context
         )
         animatorSet.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
@@ -139,7 +143,8 @@ object AnimationUtil {
         viewToAnimate: View,
         fromView: View,
         toView: View,
-        isBackAnimation: Boolean
+        isBackAnimation: Boolean,
+        context: Context
     ): AnimatorSet {
 
         val fromRect = Rect()
@@ -155,8 +160,9 @@ object AnimationUtil {
         viewToAnimate.scaleX = 1f
         viewToAnimate.scaleY = 1f
 
+        val dimen16dp = context.resources.getDimension(R.dimen.dimen_10dp)
         var toStartPosition = if (toView is MaterialButton) {
-            toRect.right + 42
+            toRect.right + dimen16dp
         } else {
             toRect.left + 20
         }
@@ -164,12 +170,12 @@ object AnimationUtil {
         var toTopPosition = if (toView is MaterialButton) {
             (toRect.top - parentViewRect.top)
         } else {
-            (toRect.top - parentViewRect.top) + 24
+            (toRect.top - parentViewRect.top) - 10
         }
 
-        if ((toStartPosition + viewToAnimate.width) > parentViewRect.right) {
-            toStartPosition = parentViewRect.left + 64
-            toTopPosition += toView.height + 42
+        if ((toStartPosition.toInt() + viewToAnimate.width) > parentViewRect.right) {
+            toStartPosition = parentViewRect.left.toFloat() + dimen16dp
+            toTopPosition += toView.height + 20
         }
 
         // moving of the object on X-axis
