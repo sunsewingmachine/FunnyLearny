@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.local.funnylearny.databinding.TrueOrFalseQuestionListItemBinding
@@ -35,15 +36,12 @@ class CardStackViewAdapter(
             trueOrFalseQuestionText.text = trueOrFalseQuestion.question
             reasonText.text = trueOrFalseQuestion.reason
             if (isRefreshing) {
-                //Change into container visibility handling
-                trueButton.visibility = View.GONE
-                falseButton.visibility = View.GONE
+                trueOrFalseButtonLayout.visibility = View.GONE
                 reasonLayout.visibility = View.VISIBLE
                 reasonText.text = trueOrFalseQuestion.reason
                 isRefreshing = false
             } else {
-                trueButton.visibility = View.VISIBLE
-                falseButton.visibility = View.VISIBLE
+                trueOrFalseButtonLayout.visibility = View.VISIBLE
                 reasonLayout.visibility = View.GONE
             }
         }
@@ -59,6 +57,7 @@ class CardStackViewAdapter(
         var trueButton: MaterialButton = binding.trueButton
         var falseButton: MaterialButton = binding.falseButton
         var reasonLayout : LinearLayout = binding.reasonLayout
+        var trueOrFalseButtonLayout : ConstraintLayout = binding.trueAndFalseButtonLayout
 
         init {
             trueButton.setOnClickListener {
@@ -72,7 +71,7 @@ class CardStackViewAdapter(
 
     private fun onTrueButtonClicked(position: Int) {
         if (trueOrFalseQuestion[position].answer) {
-            onTrueOrFalseQuestionAdapterListener.onCorrectAnswerClicked()
+            onTrueOrFalseQuestionAdapterListener.onCorrectAnswerClicked(position)
         } else {
             isRefreshing = true
             notifyItemChanged(position)
@@ -82,7 +81,7 @@ class CardStackViewAdapter(
 
     private fun onFalseButtonClicked(position: Int) {
         if (!trueOrFalseQuestion[position].answer) {
-            onTrueOrFalseQuestionAdapterListener.onCorrectAnswerClicked()
+            onTrueOrFalseQuestionAdapterListener.onCorrectAnswerClicked(position)
         } else {
             isRefreshing = true
             notifyItemChanged(position)
@@ -91,7 +90,7 @@ class CardStackViewAdapter(
     }
 
     interface OnTrueOrFalseQuestionAdapterListener {
-        fun onCorrectAnswerClicked()
+        fun onCorrectAnswerClicked(position: Int)
         fun onWrongAnswerClicked(position: Int)
     }
 

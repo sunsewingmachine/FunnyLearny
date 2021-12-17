@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.base.FragmentInteractionListener
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager
-import com.yuyakaido.android.cardstackview.StackFrom
+import com.yuyakaido.android.cardstackview.*
 import kotlinx.android.synthetic.main.fragment_true_or_false_question.*
 import java.lang.IllegalArgumentException
+import java.text.ParsePosition
 
 class TrueOrFalseQuestionFragment : Fragment() {
 
@@ -37,6 +38,7 @@ class TrueOrFalseQuestionFragment : Fragment() {
     }
 
     private var trueOrFalseQuestionList = ArrayList<TrueOrFalseQuestion>()
+    private var answerList = ArrayList<Int>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,6 +86,12 @@ class TrueOrFalseQuestionFragment : Fragment() {
         adapterAttachment()
 
         nextButton.setOnClickListener {
+            val setting = SwipeAnimationSetting.Builder()
+                .setDirection(Direction.Right)
+                .setDuration(Duration.Normal.duration)
+                .setInterpolator(AccelerateInterpolator())
+                .build()
+            cardStackLayoutManager.setSwipeAnimationSetting(setting)
             trueOrFalseQuestionCardStackView.swipe()
             nextButton.visibility = View.GONE
         }
@@ -94,16 +102,31 @@ class TrueOrFalseQuestionFragment : Fragment() {
         trueOrFalseQuestionCardStackView.layoutManager = cardStackLayoutManager
         cardStackLayoutManager.setStackFrom(StackFrom.Top)
         cardStackLayoutManager.setVisibleCount(4)
+        cardStackLayoutManager.setSwipeableMethod(SwipeableMethod.Automatic)
         trueOrFalseQuestionCardStackView.adapter = CardStackViewAdapter(trueOrFalseQuestionList,object : CardStackViewAdapter.OnTrueOrFalseQuestionAdapterListener {
-            override fun onCorrectAnswerClicked() {
+            override fun onCorrectAnswerClicked(position: Int) {
+                val setting = SwipeAnimationSetting.Builder()
+                    .setDirection(Direction.Left)
+                    .setDuration(Duration.Normal.duration)
+                    .setInterpolator(AccelerateInterpolator())
+                    .build()
+                cardStackLayoutManager.setSwipeAnimationSetting(setting)
                 trueOrFalseQuestionCardStackView.swipe()
+                answerList.add(1)
+                if(position == trueOrFalseQuestionList.size-1){
+                    requireActivity().supportFragmentManager.popBackStack()
+                    trueOrFalseQuestionFragmentInteractionListener?.onOpenResultFragment(trueOrFalseQuestionList,answerList)
+                }
+
             }
             override fun onWrongAnswerClicked(position : Int) {
                 if(position != trueOrFalseQuestionList.size-1) {
                     nextButton.visibility = View.VISIBLE
                 } else {
-
+                    requireActivity().supportFragmentManager.popBackStack()
+                    trueOrFalseQuestionFragmentInteractionListener?.onOpenResultFragment(trueOrFalseQuestionList,answerList)
                 }
+                answerList.add(0)
             }
         })
     }
@@ -114,7 +137,9 @@ class TrueOrFalseQuestionFragment : Fragment() {
         }
     }
 
-    interface TrueOrFalseQuestionFragmentInteractionListener : FragmentInteractionListener
+    interface TrueOrFalseQuestionFragmentInteractionListener : FragmentInteractionListener{
+        fun onOpenResultFragment(trueOrFalseQuestionList : ArrayList<TrueOrFalseQuestion> , answerList : ArrayList<Int>)
+    }
 
     companion object {
         @JvmStatic

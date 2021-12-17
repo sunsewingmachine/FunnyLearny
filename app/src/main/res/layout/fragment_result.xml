@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".ui.trueorfalsequestion.ResultFragment">
+
+   <com.google.android.material.appbar.AppBarLayout
+       android:id="@+id/resultAppBarLayout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <androidx.appcompat.widget.Toolbar
+           android:id="@+id/resultToolBar"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:navigationIcon="@drawable/ic_round_arrow_back_24"
+           app:title="@string/ui_label_result"/>
+   </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/resultRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="52dp"/>
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

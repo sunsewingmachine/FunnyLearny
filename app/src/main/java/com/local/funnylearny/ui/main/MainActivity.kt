@@ -14,6 +14,8 @@ import com.local.funnylearny.ui.matchpairs.MatchPairsFragment
 import com.local.funnylearny.ui.meaningcontest.MeaningContestFragment
 import com.local.funnylearny.ui.part.PartListFragment
 import com.local.funnylearny.ui.quiz.QuizFragment
+import com.local.funnylearny.ui.trueorfalsequestion.ResultFragment
+import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestion
 import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestionFragment
 
 class MainActivity : AppCompatActivity() ,
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() ,
     QuizFragment.QuizFragmentInteractionListener,
     MatchPairsFragment.MatchPairsInteractionListener,
     TrueOrFalseQuestionFragment.TrueOrFalseQuestionFragmentInteractionListener,
+    ResultFragment.ResultFragmentInteractionListener,
     SentencerFragment.SentencerFragmentInteractionListener,
     MeaningContestFragment.MeaningContestFragmentInteractionListener{
 
@@ -43,6 +46,10 @@ class MainActivity : AppCompatActivity() ,
 
     override fun onNavigationIconClickedListener() {
         onBackPressed()
+    }
+
+    override fun onOpenResultFragment(trueOrFalseQuestionList: ArrayList<TrueOrFalseQuestion>, answerList : ArrayList<Int>){
+        addFragment(R.id.fragment_container,ResultFragment.newInstance(trueOrFalseQuestionList,answerList),ResultFragment.TAG)
     }
 
     override fun onPartListItemClicked(part: Part) {
