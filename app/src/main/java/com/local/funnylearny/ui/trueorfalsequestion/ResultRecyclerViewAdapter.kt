@@ -24,17 +24,24 @@ class ResultRecyclerViewAdapter(var trueOrFalseQuestion: ArrayList<TrueOrFalseQu
         )
     }
 
+
+    private var value : Boolean = false
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val trueOrFalseQuestion = trueOrFalseQuestion[position]
         val answer = answerList[position]
         holder.resultQuestionText.text = trueOrFalseQuestion.question
-        if(answer == 0){
-           holder.selectedAnswerText.text = "Selected Answer :" + " " + true
+        if(answer == 0) {
+            if (trueOrFalseQuestion.answer) {
+                value = false
+                holder.selectedAnswerText.text = "Selected Answer : $value"
+            }
         } else {
-            holder.selectedAnswerText.text = "Selected Answer :" + " " + false
+            value = true
+            holder.selectedAnswerText.text = "Selected Answer : $value"
         }
 
+        holder.resultCorrectAnswer.text = "Correct Answer :" + " " +trueOrFalseQuestion.answer.toString()
     }
 
     override fun getItemCount(): Int = trueOrFalseQuestion.size
