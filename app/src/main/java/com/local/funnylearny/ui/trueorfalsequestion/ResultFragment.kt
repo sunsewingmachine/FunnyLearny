@@ -15,8 +15,8 @@ import java.lang.IllegalArgumentException
 class ResultFragment() : Fragment() {
 
     private var resultFragmentInteractionListener : ResultFragmentInteractionListener? = null
-    private var trueOrFalseQuestionList : ArrayList<TrueOrFalseQuestion>? = null
-    private var answerList : ArrayList<Int>? = null
+    private lateinit var trueOrFalseQuestionList : ArrayList<TrueOrFalseQuestion>
+    private lateinit var answerList : ArrayList<Int>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,15 +43,15 @@ class ResultFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initToolBar()
         arguments?. let {
-            trueOrFalseQuestionList = it.getParcelableArrayList<ArrayList<TrueOrFalseQuestion>>(TRUE_OR_FALSE_QUESTION_LIST)
-            answerList = it.getIntegerArrayList(ANSWER_LIST) as ArrayList<Int>
+            trueOrFalseQuestionList = it.getParcelableArrayList(TRUE_OR_FALSE_QUESTION_LIST)!!
+            answerList = it.getIntegerArrayList(ANSWER_LIST)!!
         }
         adapterAttachment()
     }
 
     private fun adapterAttachment(){
         resultRecyclerView.layoutManager = LinearLayoutManager(context)
-        resultRecyclerView.adapter =ResultRecyclerViewAdapter(trueOrFalseQuestionList,answerList)
+        resultRecyclerView.adapter = ResultRecyclerViewAdapter(trueOrFalseQuestionList,answerList)
     }
 
     private fun initToolBar(){
