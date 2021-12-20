@@ -13,13 +13,25 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_funny_learny.*
 import android.content.Context
 import com.local.funnylearny.R
+import com.local.funnylearny.ui.base.FragmentInteractionListener
 import com.local.funnylearny.ui.util.AnimationUtil
+import java.lang.IllegalArgumentException
 
 class WordArrangementFragment : Fragment() {
 
+    private var wordArrangementFragmentInteractionListener : WordArrangementFragmentInteractionListener? = null
     private var wordList = ArrayList<String>()
     private var clickedAnswerList = ArrayList<String>()
     private var isBoolean : Boolean = true
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is WordArrangementFragmentInteractionListener){
+            wordArrangementFragmentInteractionListener = context
+        } else {
+            throw IllegalArgumentException("WordArrangementFragmentInteractionListener is not implemented in respective activity")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,11 +43,11 @@ class WordArrangementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initToolBar()
 
-
-        val inputString = "I am,from,a,village,in,tamilnadu,india,asia"
+        val inputString = "I am,from,a,village,in,tamilNadu,india,asia"
         val words = inputString.split(",")
-        words.forEach { it ->
+        words.forEach {
             wordList.add(it)
         }
 
@@ -44,9 +56,13 @@ class WordArrangementFragment : Fragment() {
 
         checkNowButton.setOnClickListener {
             checkAnswer(clickedAnswerList,wordList)
-
         }
+    }
 
+    private fun  initToolBar(){
+        wordArrangeToolBar.setNavigationOnClickListener{
+            wordArrangementFragmentInteractionListener?.onNavigationIconClickedListener()
+        }
     }
 
     private fun setSentenceTextView(words : List<String>)  {
@@ -144,11 +160,19 @@ class WordArrangementFragment : Fragment() {
             }
         }
         if(isBoolean){
-            val message = "Correct"
+            val message = "You Entered Correct Answer!!"
             showAlertDialog(message)
-        } else {
-            val message = "Wrong"
-            showAlertDialog(message)
+        } else {  var words  = ""
+            wordList.forEach {
+                words += "$it "
+            }
+            var clickedAnswer = ""
+            clickedAnswerList.forEach {
+                clickedAnswer += "$it "
+            }
+                val message = "You Entered Wrong Answer!!" + "The Correct Answer is" + words + "You Entered Answer is" + clickedAnswer
+                showAlertDialog(message)
+
         }
     }
 
@@ -156,16 +180,17 @@ class WordArrangementFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
             .setTitle("Reason")
             .setMessage(message)
-            .setPositiveButton("Okay") { dialog, _ ->
+            .setPositiveButton("Next") { dialog, _ ->
                 dialog.dismiss()
             }
-
         val dialog = dialogBuilder.create()
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(),R.color.alertDialogButtonColor))
         }
         dialog.show()
     }
+
+    interface WordArrangementFragmentInteractionListener : FragmentInteractionListener
 
     companion object {
 

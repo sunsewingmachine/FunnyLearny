@@ -21,6 +21,7 @@ import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestionFragment
 class MainActivity : AppCompatActivity() ,
     LessonListFragment.LessonListFragmentInteractionListener,
     PartListFragment.PartListFragmentInteractionListener,
+    WordArrangementFragment.WordArrangementFragmentInteractionListener,
     QuizFragment.QuizFragmentInteractionListener,
     MatchPairsFragment.MatchPairsInteractionListener,
     TrueOrFalseQuestionFragment.TrueOrFalseQuestionFragmentInteractionListener,
