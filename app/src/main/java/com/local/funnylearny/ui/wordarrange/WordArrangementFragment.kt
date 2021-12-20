@@ -1,5 +1,6 @@
 package com.local.funnylearny.ui.wordarrange
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,13 +15,11 @@ import android.content.Context
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.util.AnimationUtil
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [WordArrangementFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class WordArrangementFragment : Fragment() {
+
+    private var wordList = ArrayList<String>()
+    private var clickedAnswerList = ArrayList<String>()
+    private var isBoolean : Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +35,15 @@ class WordArrangementFragment : Fragment() {
 
         val inputString = "I am,from,a,village,in,tamilnadu,india,asia"
         val words = inputString.split(",")
+        wordList.add(words.toString())
 
         setSentenceTextView(words)
         generateWordButtons(words)
+
+        checkNowButton.setOnClickListener {
+            checkAnswer(clickedAnswerList,wordList)
+
+        }
 
     }
 
@@ -80,6 +85,7 @@ class WordArrangementFragment : Fragment() {
                     override fun onAnimationEnd() {
                         randomWordsContainer.removeView(it)
                         arrangeWordsContainer.addView(it)
+                        clickedAnswerList.add(word)
                         it.tag = false
                     }
                 },false,context)
@@ -126,6 +132,37 @@ class WordArrangementFragment : Fragment() {
         wordButton.layoutParams = lp
         wordButton.tag = true
         return wordButton
+    }
+
+    private fun checkAnswer(clickedAnswerList : ArrayList<String>, wordList: ArrayList<String>){
+        for(index in  0 until  wordList.size-1){
+            if(clickedAnswerList[index] != wordList[index]){
+                isBoolean = false
+                break
+            }
+        }
+        if(isBoolean){
+            val message = "Correct"
+            showAlertDialog(message)
+        } else {
+            val message = "Wrong"
+            showAlertDialog(message)
+        }
+    }
+
+    private fun showAlertDialog(message : String){
+        val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
+            .setTitle("Reason")
+            .setMessage(message)
+            .setPositiveButton("Okay") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialog = dialogBuilder.create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(),R.color.alertDialogButtonColor))
+        }
+        dialog.show()
     }
 
     companion object {
