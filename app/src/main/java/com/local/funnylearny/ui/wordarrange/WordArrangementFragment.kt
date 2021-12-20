@@ -35,7 +35,9 @@ class WordArrangementFragment : Fragment() {
 
         val inputString = "I am,from,a,village,in,tamilnadu,india,asia"
         val words = inputString.split(",")
-        wordList.add(words.toString())
+        words.forEach { it ->
+            wordList.add(it)
+        }
 
         setSentenceTextView(words)
         generateWordButtons(words)
