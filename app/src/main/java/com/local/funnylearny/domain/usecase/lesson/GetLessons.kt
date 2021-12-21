@@ -5,27 +5,6 @@ import com.local.funnylearny.data.lesson.LessonRepositoryContract
 import com.local.funnylearny.data.lesson.LessonRepositoryService
 import com.local.funnylearny.domain.model.lesson.Lesson
 
-
-/*
-class A() {
-
-    ArrayList<String> arrList;
-
-    A(ArrayList<String> arrList) {
-
-        this.arrList = arrList;
-
-    }
-
-}
-ArrayList<String> arrList = new ArrayList<String>()
-arrList.add("madhan")
-
-A aclass = new A(arrList)
-priny(aclass.a)
-*/
-
-
 object GetLessons : UseCase<UseCase.RequestValue, GetLessons.ResponseValue>() {
 
     var lessonRepositoryService : LessonRepositoryContract = LessonRepositoryService

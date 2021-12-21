@@ -102,7 +102,7 @@ object AnimationUtil {
         return animatorSet
     }
 
-    fun wordArrangmentMoveAnimation(
+    fun wordArrangementMoveAnimation(
         fromView: View,
         toView: View,
         rootView: View,
@@ -195,7 +195,7 @@ object AnimationUtil {
         )
         val animatorSet = AnimatorSet()
         animatorSet.interpolator = DecelerateInterpolator(1f)
-        animatorSet.duration = 200 // can be decoupled for each animator separately
+        animatorSet.duration = 300 // can be decoupled for each animator separately
         animatorSet.startDelay = 0 // can be decoupled for each animator separately
         animatorSet.playTogether(
             translateAnimatorX,

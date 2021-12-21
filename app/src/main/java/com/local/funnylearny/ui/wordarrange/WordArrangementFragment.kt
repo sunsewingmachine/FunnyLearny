@@ -12,8 +12,6 @@ import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_funny_learny.*
 import android.content.Context
-import android.os.Handler
-import android.view.animation.Animation
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.base.FragmentInteractionListener
 import com.local.funnylearny.ui.util.AnimationUtil
@@ -105,7 +103,7 @@ class WordArrangementFragment : Fragment() {
                     arrangeWordsContainer.getChildAt(arrangeWordsContainer.childCount-1)
                 }
                 shuttleButton.text = word
-                AnimationUtil.wordArrangmentMoveAnimation(
+                AnimationUtil.wordArrangementMoveAnimation(
                     it,
                     toView,
                     rootLayout,
@@ -128,7 +126,7 @@ class WordArrangementFragment : Fragment() {
                     randomWordsContainer.getChildAt(randomWordsContainer.childCount-1)
                 }
                 shuttleButton.text = word
-                AnimationUtil.wordArrangmentMoveAnimation(
+                AnimationUtil.wordArrangementMoveAnimation(
                     it,
                     toView,
                     rootLayout,shuttleButton, object : AnimationUtil.OnAnimationEndListener {
@@ -197,7 +195,8 @@ class WordArrangementFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("Next",) { dialog, id ->
+            .setCancelable(false)
+            .setPositiveButton("Next") { _, _ ->
                 popBackStackAndOpenNextTask()
             }
         val dialog = dialogBuilder.create()
