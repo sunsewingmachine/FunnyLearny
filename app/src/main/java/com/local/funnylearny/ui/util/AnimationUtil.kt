@@ -195,7 +195,7 @@ object AnimationUtil {
         )
         val animatorSet = AnimatorSet()
         animatorSet.interpolator = DecelerateInterpolator(1f)
-        animatorSet.duration = 600 // can be decoupled for each animator separately
+        animatorSet.duration = 200 // can be decoupled for each animator separately
         animatorSet.startDelay = 0 // can be decoupled for each animator separately
         animatorSet.playTogether(
             translateAnimatorX,

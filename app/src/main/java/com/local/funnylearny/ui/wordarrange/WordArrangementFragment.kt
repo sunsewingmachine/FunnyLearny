@@ -60,11 +60,6 @@ class WordArrangementFragment : Fragment() {
         setSentenceTextView(words)
         generateWordButtons(words)
 
-        val lt = LayoutTransition()
-        lt.disableTransitionType(LayoutTransition.DISAPPEARING)
-        randomWordsContainer.layoutTransition = lt
-        arrangeWordsContainer.layoutTransition = lt
-
         checkNowButton.setOnClickListener {
             checkAnswer(clickedAnswerList,wordList)
         }
@@ -99,21 +94,17 @@ class WordArrangementFragment : Fragment() {
         wordButton.setOnClickListener {
             val isFromRandomContainer = it.tag as Boolean
             if(isFromRandomContainer) {
+                val lt = LayoutTransition()
+                lt.disableTransitionType(LayoutTransition.DISAPPEARING)
+                randomWordsContainer.layoutTransition = lt
+                lt.disableTransitionType(LayoutTransition.APPEARING)
+                arrangeWordsContainer.layoutTransition = lt
                 val toView = if(arrangeWordsContainer.childCount == 0) {
                     arrangeWordsContainer
                 } else {
                     arrangeWordsContainer.getChildAt(arrangeWordsContainer.childCount-1)
                 }
                 shuttleButton.text = word
-                val onLayoutAnimationListener = object : Animation.AnimationListener {
-                    override fun onAnimationStart(p0: Animation?) {
-                    }
-                    override fun onAnimationEnd(p0: Animation?) {
-
-                    }
-                    override fun onAnimationRepeat(p0: Animation?) {
-                    }
-                }
                 AnimationUtil.wordArrangmentMoveAnimation(
                     it,
                     toView,
@@ -128,7 +119,9 @@ class WordArrangementFragment : Fragment() {
                     }
                 },false,context)
             } else {
-
+                /*val lt = LayoutTransition()
+                lt.disableTransitionType(LayoutTransition.DISAPPEARING)
+                arrangeWordsContainer.layoutTransition = lt*/
                 val toView = if(randomWordsContainer.childCount == 0) {
                     randomWordsContainer
                 } else {
@@ -142,6 +135,7 @@ class WordArrangementFragment : Fragment() {
                     override fun onAnimationEnd() {
                         arrangeWordsContainer.removeView(it)
                         randomWordsContainer.addView(it)
+                        clickedAnswerList.remove(word)
                         it.tag = true
                     }
                 },true,context)
@@ -173,32 +167,35 @@ class WordArrangementFragment : Fragment() {
     }
 
     private fun checkAnswer(clickedAnswerList : ArrayList<String>, wordList: ArrayList<String>){
-        for(index in  0 until  wordList.size-1){
-            if(clickedAnswerList[index] != wordList[index]){
-                isBoolean = false
-                break
+        if(clickedAnswerList.isNotEmpty() && clickedAnswerList.size == wordList.size) {
+            for (index in 0 until wordList.size - 1) {
+                if (clickedAnswerList[index] != wordList[index]) {
+                    isBoolean = false
+                    break
+                }
             }
-        }
-        if(isBoolean){
-            val message = "You Entered Correct Answer!!"
-            showAlertDialog(message)
-        } else {  var words  = ""
-            wordList.forEach {
-                words += "$it "
+            if (isBoolean) {
+                val message = "Your Answer is Correct!!"
+                showAlertDialog("Correct",message)
+            } else {
+                var words = ""
+                wordList.forEach {
+                    words += "$it "
+                }
+                var clickedAnswer = ""
+                clickedAnswerList.forEach {
+                    clickedAnswer += "$it "
+                }
+                val message = "\nThe Correct Answer is \n\n$words\n\nYou Entered Answer is\n\n$clickedAnswer"
+                showAlertDialog("Wrong",message)
             }
-            var clickedAnswer = ""
-            clickedAnswerList.forEach {
-                clickedAnswer += "$it "
-            }
-                val message = "You Entered Wrong Answer!!" + "The Correct Answer is" + words + "You Entered Answer is" + clickedAnswer
-                showAlertDialog(message)
-
+            clickedAnswerList.clear()
         }
     }
 
-    private fun showAlertDialog(message : String){
+    private fun showAlertDialog(title : String,message : String){
         val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
-            .setTitle("Reason")
+            .setTitle(title)
             .setMessage(message)
             .setPositiveButton("Next") { dialog, _ ->
                 dialog.dismiss()
