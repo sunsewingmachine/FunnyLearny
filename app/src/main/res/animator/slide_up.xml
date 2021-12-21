@@ -6,4 +6,4 @@
     android:valueType="floatType"
     android:valueFrom="2000dp"
     android:valueTo="0dp"
-    android:duration="1000"/><!--$Id$-->
+    android:duration="500"/><!--$Id$-->

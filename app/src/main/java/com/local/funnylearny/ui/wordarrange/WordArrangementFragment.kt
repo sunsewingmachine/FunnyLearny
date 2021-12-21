@@ -12,10 +12,16 @@ import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_funny_learny.*
 import android.content.Context
+import android.os.Handler
+import android.view.animation.Animation
 import com.local.funnylearny.R
 import com.local.funnylearny.ui.base.FragmentInteractionListener
 import com.local.funnylearny.ui.util.AnimationUtil
 import java.lang.IllegalArgumentException
+import android.animation.LayoutTransition
+
+
+
 
 class WordArrangementFragment : Fragment() {
 
@@ -53,6 +59,11 @@ class WordArrangementFragment : Fragment() {
 
         setSentenceTextView(words)
         generateWordButtons(words)
+
+        val lt = LayoutTransition()
+        lt.disableTransitionType(LayoutTransition.DISAPPEARING)
+        randomWordsContainer.layoutTransition = lt
+        arrangeWordsContainer.layoutTransition = lt
 
         checkNowButton.setOnClickListener {
             checkAnswer(clickedAnswerList,wordList)
@@ -94,6 +105,15 @@ class WordArrangementFragment : Fragment() {
                     arrangeWordsContainer.getChildAt(arrangeWordsContainer.childCount-1)
                 }
                 shuttleButton.text = word
+                val onLayoutAnimationListener = object : Animation.AnimationListener {
+                    override fun onAnimationStart(p0: Animation?) {
+                    }
+                    override fun onAnimationEnd(p0: Animation?) {
+
+                    }
+                    override fun onAnimationRepeat(p0: Animation?) {
+                    }
+                }
                 AnimationUtil.wordArrangmentMoveAnimation(
                     it,
                     toView,
