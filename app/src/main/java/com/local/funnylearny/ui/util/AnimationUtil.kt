@@ -9,6 +9,10 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import com.google.android.material.button.MaterialButton
 import com.local.funnylearny.R
+import android.animation.AnimatorListenerAdapter
+
+
+
 
 object AnimationUtil {
 
@@ -127,8 +131,8 @@ object AnimationUtil {
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                shuttleView.visibility = View.GONE
                 fromView.visibility = View.VISIBLE
+                shuttleView.visibility = View.GONE
                 onAnimationEndListener.onAnimationEnd()
             }
 
@@ -160,21 +164,17 @@ object AnimationUtil {
         viewToAnimate.scaleX = 1f
         viewToAnimate.scaleY = 1f
 
-        val dimen16dp = context.resources.getDimension(R.dimen.dimen_10dp)
+
         var toStartPosition = if (toView is MaterialButton) {
-            toRect.right + dimen16dp
+            toRect.right + 30
         } else {
-            toRect.left + 20
+            toRect.left + 16
         }
 
-        var toTopPosition = if (toView is MaterialButton) {
-            (toRect.top - parentViewRect.top)
-        } else {
-            (toRect.top - parentViewRect.top) - 10
-        }
+        var toTopPosition = (toRect.top - parentViewRect.top) + 16
 
-        if ((toStartPosition.toInt() + viewToAnimate.width) > parentViewRect.right) {
-            toStartPosition = parentViewRect.left.toFloat() + dimen16dp
+        if ((toView is MaterialButton) && (viewToAnimate.width > (parentViewRect.right-toRect.right))) {
+            toStartPosition = parentViewRect.left + 20
             toTopPosition += toView.height + 20
         }
 
@@ -195,7 +195,7 @@ object AnimationUtil {
         )
         val animatorSet = AnimatorSet()
         animatorSet.interpolator = DecelerateInterpolator(1f)
-        animatorSet.duration = 300 // can be decoupled for each animator separately
+        animatorSet.duration = 400 // can be decoupled for each animator separately
         animatorSet.startDelay = 0 // can be decoupled for each animator separately
         animatorSet.playTogether(
             translateAnimatorX,

@@ -17,8 +17,9 @@ import com.local.funnylearny.ui.base.FragmentInteractionListener
 import com.local.funnylearny.ui.util.AnimationUtil
 import java.lang.IllegalArgumentException
 import android.animation.LayoutTransition
-
-
+import androidx.constraintlayout.widget.ConstraintLayout
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class WordArrangementFragment : Fragment() {
@@ -79,8 +80,7 @@ class WordArrangementFragment : Fragment() {
 
 
     private fun generateWordButtons(words : List<String>) {
-            words.shuffled()
-            words.forEachIndexed { _, word ->
+            words.shuffled().forEachIndexed { _, word ->
                 addWordButton(requireContext(),word)
             }
     }
@@ -93,10 +93,10 @@ class WordArrangementFragment : Fragment() {
             val isFromRandomContainer = it.tag as Boolean
             if(isFromRandomContainer) {
                 val lt = LayoutTransition()
-                lt.disableTransitionType(LayoutTransition.DISAPPEARING)
+                /*lt.disableTransitionType(LayoutTransition.CHANGE_DISAPPEARING)
                 randomWordsContainer.layoutTransition = lt
-                lt.disableTransitionType(LayoutTransition.APPEARING)
-                arrangeWordsContainer.layoutTransition = lt
+                lt.disableTransitionType(LayoutTransition.CHANGE_APPEARING)
+                arrangeWordsContainer.layoutTransition = lt*/
                 val toView = if(arrangeWordsContainer.childCount == 0) {
                     arrangeWordsContainer
                 } else {
@@ -117,9 +117,11 @@ class WordArrangementFragment : Fragment() {
                     }
                 },false,context)
             } else {
-                /*val lt = LayoutTransition()
-                lt.disableTransitionType(LayoutTransition.DISAPPEARING)
-                arrangeWordsContainer.layoutTransition = lt*/
+                val lt = LayoutTransition()
+               /* lt.disableTransitionType(LayoutTransition.DISAPPEARING)
+                arrangeWordsContainer.layoutTransition = lt
+                lt.disableTransitionType(LayoutTransition.CHANGE_APPEARING)
+                randomWordsContainer.layoutTransition = lt*/
                 val toView = if(randomWordsContainer.childCount == 0) {
                     randomWordsContainer
                 } else {
@@ -165,7 +167,7 @@ class WordArrangementFragment : Fragment() {
     }
 
     private fun checkAnswer(clickedAnswerList : ArrayList<String>, wordList: ArrayList<String>){
-        if(clickedAnswerList.isNotEmpty() && clickedAnswerList.size == wordList.size) {
+        if(clickedAnswerList.size == wordList.size) {
             for (index in 0 until wordList.size - 1) {
                 if (clickedAnswerList[index] != wordList[index]) {
                     isBoolean = false

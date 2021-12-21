@@ -51,10 +51,9 @@ class SentencerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
-        sentencerList.add(Sentencer("How?","எப்படி","something"))
-        sentencerList.add(Sentencer("is?","", "something"))
-        sentencerList.add(Sentencer("your?","உங்கள்","something"))
-        sentencerList.add(Sentencer("name?","பெயர்?","something"))
+        sentencerList.add(Sentencer("How","எப்படி","something"))
+        sentencerList.add(Sentencer("is","", "something"))
+        sentencerList.add(Sentencer("your","உங்கள்","something"))
         sentencerList.add(Sentencer("daddy","தந்தை","something"))
         sentencerList.add(Sentencer("now?","இப்போது?","something"))
         adapterAttachment()
