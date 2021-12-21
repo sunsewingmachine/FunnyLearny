@@ -45,6 +45,10 @@ class MainActivity : AppCompatActivity() ,
         addFragment(R.id.fragment_container, PartListFragment.newInstance(lessonName = lesson.name), PartListFragment.TAG)
     }
 
+    override fun openNextTask() {
+        openQuizFragment()
+    }
+
     override fun onNavigationIconClickedListener() {
         onBackPressed()
     }

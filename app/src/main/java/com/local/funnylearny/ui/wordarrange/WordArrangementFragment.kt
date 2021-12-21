@@ -197,8 +197,8 @@ class WordArrangementFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("Next") { dialog, _ ->
-                dialog.dismiss()
+            .setPositiveButton("Next",) { dialog, id ->
+                popBackStackAndOpenNextTask()
             }
         val dialog = dialogBuilder.create()
         dialog.setOnShowListener {
@@ -207,7 +207,14 @@ class WordArrangementFragment : Fragment() {
         dialog.show()
     }
 
-    interface WordArrangementFragmentInteractionListener : FragmentInteractionListener
+   private fun popBackStackAndOpenNextTask(){
+       requireActivity().supportFragmentManager.popBackStack()
+       wordArrangementFragmentInteractionListener?.openNextTask()
+   }
+
+    interface WordArrangementFragmentInteractionListener : FragmentInteractionListener{
+        fun openNextTask()
+    }
 
     companion object {
 
