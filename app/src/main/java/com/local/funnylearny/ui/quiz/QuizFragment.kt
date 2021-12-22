@@ -87,6 +87,7 @@ class QuizFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
             .setTitle("Reason")
             .setMessage(getOptionReason(currentSelectedOption,quiz))
+            .setCancelable(false)
             .setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
             }

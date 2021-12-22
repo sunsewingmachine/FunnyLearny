@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.local.funnylearny.R
 import com.local.funnylearny.databinding.ResultListItemBinding
 
 class ResultRecyclerViewAdapter(
@@ -16,10 +15,7 @@ class ResultRecyclerViewAdapter(
     var answerList : ArrayList<Int>
     ) : RecyclerView.Adapter<ResultRecyclerViewAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ResultRecyclerViewAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ResultListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -34,13 +30,13 @@ class ResultRecyclerViewAdapter(
         val trueOrFalseQuestion = trueOrFalseQuestion[position]
         val answer = answerList[position]
         holder.apply { //remove holders inside apply
-            holder.resultQuestionText.text = trueOrFalseQuestion.question
+            resultQuestionText.text = trueOrFalseQuestion.question
             if ((trueOrFalseQuestion.answer && answer == 1) || (!trueOrFalseQuestion.answer && answer == 1)) {
-                holder.selectedAnswerText.text = "Selected Answer : ${trueOrFalseQuestion.answer}"
+                selectedAnswerText.text = "Selected Answer : ${trueOrFalseQuestion.answer}"
             } else {
                 resultReasonLayout.visibility = View.VISIBLE
                 resultReasonText.text = trueOrFalseQuestion.reason
-                holder.selectedAnswerText.text = "Selected Answer : ${!trueOrFalseQuestion.answer}"
+                selectedAnswerText.text = "Selected Answer : ${!trueOrFalseQuestion.answer}"
             }
             if (answer == 1) {
                 selectedAnswerText.setTextColor(Color.GREEN)

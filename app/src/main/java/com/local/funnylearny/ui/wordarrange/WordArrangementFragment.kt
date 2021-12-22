@@ -219,10 +219,6 @@ class WordArrangementFragment : Fragment() {
 
     companion object {
 
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         */
         const val TAG = "WordArrangementFragment"
         @JvmStatic
         fun newInstance() = WordArrangementFragment()
