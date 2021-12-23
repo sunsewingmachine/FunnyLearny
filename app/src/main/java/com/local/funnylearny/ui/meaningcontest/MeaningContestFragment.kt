@@ -1,5 +1,6 @@
 package com.local.funnylearny.ui.meaningcontest
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -90,7 +91,17 @@ class MeaningContestFragment : Fragment() {
                // bindDataOnViews(++count)
             }*/
         }
+
+       // progressBar()
     }
+
+    /*private fun progressBar() {
+        meaningContestProgressBar.max = 10
+        val currentProgress = 5
+        ObjectAnimator.ofInt(meaningContestProgressBar,"meaningContestProgressBar",currentProgress)
+            .setDuration(200)
+            .start()
+    }*/
 
     private fun bindDataOnViews(count : Int) {
         meaningContestQuestionText.text = meaningContestList[count].question
