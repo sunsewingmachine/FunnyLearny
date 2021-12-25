@@ -91,6 +91,7 @@ class SentencerFragment : Fragment() {
     private fun prepareDataAndSpeakOutAll(arrayList : ArrayList<*>) {
 
         val allWordList = ArrayList<String>()
+        val allTamilList = ArrayList<String>()
 
         val isTamilWord = when {
             arrayList[0] is String  -> {
@@ -104,22 +105,28 @@ class SentencerFragment : Fragment() {
                 arrayList.forEach {
                     it as Sentencer
                     allWordList.add(it.word)
+                    allTamilList.add(it.meaning)
                 }
                 false
             }
             else -> false
         }
-        speakOutAll(allWordList,isTamilWord)
+        speakOutAll(allWordList,isTamilWord,allTamilList)
     }
 
-    private fun speakOutAll(allWordList: ArrayList<String>,isTamilWord: Boolean) {
+    private fun speakOutAll(allWordList: ArrayList<String>,isTamilWord: Boolean,allTamilWords: ArrayList<String>) {
         tts!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(p0: String?) {
 
             }
             override fun onDone(p0: String?) {
-                allWordList.removeAt(0)
-                speak(allWordList,isTamilWord)
+
+                if(allWordList.isNotEmpty()) {
+                    allWordList.removeAt(0)
+                } else {
+                    allTamilWords.removeAt(0)
+                }
+                speak(allWordList,isTamilWord,allTamilWords)
             }
 
             override fun onError(p0: String?) {
@@ -129,7 +136,7 @@ class SentencerFragment : Fragment() {
         speak(allWordList,false)
     }
 
-    private fun speak(allWordList : ArrayList<String>,isTamilWord : Boolean) {
+    private fun speak(allWordList : ArrayList<String>,isTamilWord : Boolean,allTamilWords : ArrayList<String>? = null) {
         if(allWordList.isNotEmpty()) {
             val language = if(isTamilWord) {
                 Locale.Builder().setLanguage("ta").setRegion("IN").build()
@@ -138,7 +145,15 @@ class SentencerFragment : Fragment() {
             }
             tts!!.language = language
             tts!!.speak(allWordList[0], TextToSpeech.QUEUE_FLUSH, null, "")
+        } else if(allTamilWords != null) {
+            tts!!.language = Locale.Builder().setLanguage("ta").setRegion("IN").build()
+            tts!!.speak(allTamilWords[0], TextToSpeech.QUEUE_FLUSH, null, "")
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        tts!!.stop()
     }
 
     override fun onDestroy() {

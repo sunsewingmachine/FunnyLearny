@@ -28,9 +28,9 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/playerLayout"
@@ -42,12 +42,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/playerOne"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_16dp"
                     android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/playerOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16dp"
                     app:cardBackgroundColor="#82B1D6"
                     app:strokeColor="@color/strokeColor"
                     app:strokeWidth="1dp">
@@ -78,42 +83,67 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/playerTwo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_16dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#82B1D6"
-                    app:strokeColor="@color/strokeColor"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/playerOneScore"
+                        android:text="@string/initial_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/dimen_8dp"
-                        android:orientation="vertical">
+                        android:layout_gravity="center"/>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/playerTwoImage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/dimen_8dp"
-                            android:src="@drawable/ic_baseline_person_24" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/playerTwoText"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/playerTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dimen_16dp"
+                        app:cardBackgroundColor="#82B1D6"
+                        app:strokeColor="@color/strokeColor"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/dimen_8dp"
-                            android:text="@string/player_two" />
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/playerTwoImage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dimen_8dp"
+                                android:src="@drawable/ic_baseline_person_24" />
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:id="@+id/playerTwoText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/dimen_8dp"
+                                android:text="@string/player_two" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/playerTwoScore"
+                        android:text="@string/initial_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
 
@@ -122,8 +152,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:text="Player 2 Won"
                 android:visibility="gone"
+                android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_marginEnd="@dimen/dimen_16dp"
                 app:layout_constraintEnd_toEndOf="@id/playerLayout"
                 app:layout_constraintTop_toBottomOf="@id/playerLayout"/>
@@ -289,9 +319,16 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#82B1D6"
+                    android:layout_gravity="center"
+                    android:text="@string/start"
+                    android:layout_marginTop="@dimen/dimen_16dp"/>
+
             </LinearLayout>
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,9 +1,7 @@
 package com.local.funnylearny.ui.meaningcontest
 
 
-import android.animation.Animator
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,18 +17,19 @@ import android.os.CountDownTimer
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 import android.animation.ObjectAnimator
-import android.os.Handler
-import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
+import android.util.Log
 
 
 class MeaningContestFragment : Fragment() {
 
-    private var meaningContestFragmentInteractionListener: MeaningContestFragmentInteractionListener? =
-        null
+    private var meaningContestFragmentInteractionListener: MeaningContestFragmentInteractionListener? = null
     private var meaningContestList = ArrayList<MeaningContest>()
     private var count = 0
+    private var player1Score = 0
+    private var player2Score = 0
     private var isAnswerSelected = false
+    private var mCountDownTimer : CountDownTimer? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -77,9 +76,16 @@ class MeaningContestFragment : Fragment() {
 
 
         bindDataOnViews(count)
+        playerOneScore.text = context?.getString(R.string.initial_score,"0")
+        playerTwoScore.text = context?.getString(R.string.initial_score,"0")
+        start.setOnClickListener {
+            mCountDownTimer?.start()
+            it.visibility = View.GONE
+        }
+
         meaningContestOptionOneCardView.setOnClickListener {
             if (!isAnswerSelected)
-                checkAnswer(1, count, meaningContestList)
+                checkAnswer(1, count ,meaningContestList)
         }
 
         meaningContestOptionTwoCardView.setOnClickListener {
@@ -97,6 +103,8 @@ class MeaningContestFragment : Fragment() {
                 checkAnswer(4, count, meaningContestList)
         }
 
+
+
         prepareOpponentAndStart()
 
     }
@@ -110,21 +118,30 @@ class MeaningContestFragment : Fragment() {
         )
         val randomAnswer = Random.nextInt(4)
         val randomElement = list[randomAnswer]
-        val randomMilliSec = Random.nextInt(9)
-        progressBar(randomElement, randomMilliSec)
+        val randomMilliSec = Random.nextInt(2,9)
+        startCountDownTimerWork(randomElement, randomMilliSec)
     }
 
 
-    private fun progressBar(randomElement: String, randomMilliSec: Int) {
-        val mCountDownTimer = object : CountDownTimer(10000, 1000) {
+    private fun startCountDownTimerWork(randomElement: String, randomMilliSec: Int) {
+        mCountDownTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 meaningContestProgressBar.progress += 10
-                if (randomMilliSec * 10 == meaningContestProgressBar.progress) {
+                val pb = meaningContestProgressBar.progress
+                val rms = randomMilliSec * 10
+                Log.i("startCountDownTimerWork","$pb $rms")
+                if (rms == pb) {
                     meaningContestRandomText.visibility = View.VISIBLE
                     if (meaningContestList[count].answer == randomElement) {
-                        meaningContestRandomText.text = "Player 2 Chosen Correct Answer."
+                        player2Score += if(randomMilliSec < 5) {
+                            10
+                        } else {
+                            5
+                        }
+                        playerTwoScore.text = context?.getString(R.string.initial_score,player2Score.toString())
+                        meaningContestRandomText.text = context?.getString(R.string.player_two_correct_answer)
                     } else {
-                        meaningContestRandomText.text = "Player 2 Chosen Wrong Answer."
+                        meaningContestRandomText.text = context?.getString(R.string.player_two_wrong_answer)
                     }
                 }
             }
@@ -134,7 +151,6 @@ class MeaningContestFragment : Fragment() {
                 startNextQuestion()
             }
         }
-        mCountDownTimer.start()
     }
 
     private fun startNextQuestion() {
@@ -143,6 +159,12 @@ class MeaningContestFragment : Fragment() {
             bindDataOnViews(++count)
         } else {
             resultLayout.visibility = View.VISIBLE
+            meaningContestRandomText.visibility = View.GONE
+            if(player1Score > player2Score) {
+                resultImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.win))
+            } else {
+                resultImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.lose))
+            }
             doFadeInAndOutAnimation(questionLayout,resultLayout)
         }
     }
@@ -162,7 +184,10 @@ class MeaningContestFragment : Fragment() {
         setTransparentBackground(meaningContestOptionFourCardView)
         meaningContestRandomText.visibility = View.GONE
         isAnswerSelected = false
-        if (count != 0) prepareOpponentAndStart()
+        if (count != 0) {
+            prepareOpponentAndStart()
+            mCountDownTimer?.start()
+        }
     }
 
     private fun doFadeInAndOutAnimation(fadeOutLayout : View,fadeInLayout : View) {
@@ -200,6 +225,12 @@ class MeaningContestFragment : Fragment() {
                 count
             )
         ) {
+            player1Score += if((meaningContestProgressBar.progress/10) < 5) {
+                10
+            } else {
+                5
+            }
+            playerOneScore.text = context?.getString(R.string.initial_score,player1Score.toString())
             getOptionCardView(currentPosition).setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
@@ -250,6 +281,11 @@ class MeaningContestFragment : Fragment() {
         meaningContestToolBar.setNavigationOnClickListener {
             meaningContestFragmentInteractionListener?.onNavigationIconClickedListener()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mCountDownTimer?.cancel()
     }
 
     interface MeaningContestFragmentInteractionListener : FragmentInteractionListener

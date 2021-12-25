@@ -22,4 +22,8 @@
     <string name="header_answer">Answer</string>
     <string name="player_one">Player 1</string>
     <string name="player_two">Player 2</string>
+    <string name="initial_score" formatted="true">Score : %1s</string>
+    <string name="player_two_correct_answer">Player 2 Chosen Correct Answer.</string>
+    <string name="player_two_wrong_answer">Player 2 Chosen Wrong Answer.</string>
+    <string name="start">Start</string>
 </resources>
