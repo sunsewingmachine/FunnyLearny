@@ -14,6 +14,7 @@ import com.local.funnylearny.ui.matchpairs.MatchPairsFragment
 import com.local.funnylearny.ui.meaningcontest.MeaningContestFragment
 import com.local.funnylearny.ui.part.PartListFragment
 import com.local.funnylearny.ui.quiz.QuizFragment
+import com.local.funnylearny.ui.themes_colors.ThemesAndColorsFragment
 import com.local.funnylearny.ui.trueorfalsequestion.ResultFragment
 import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestion
 import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestionFragment
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() ,
     TrueOrFalseQuestionFragment.TrueOrFalseQuestionFragmentInteractionListener,
     ResultFragment.ResultFragmentInteractionListener,
     SentencerFragment.SentencerFragmentInteractionListener,
-    MeaningContestFragment.MeaningContestFragmentInteractionListener{
+    MeaningContestFragment.MeaningContestFragmentInteractionListener,
+    ThemesAndColorsFragment.ThemesAndColorsFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +109,12 @@ class MainActivity : AppCompatActivity() ,
             MeaningContestFragment.newInstance(),
             MeaningContestFragment.TAG
         )
+    }
+
+    internal fun openThemesAndColorsFragment(){
+        addFragment(R.id.fragment_container,
+        ThemesAndColorsFragment.newInstance(),
+        ThemesAndColorsFragment.TAG)
     }
 
 

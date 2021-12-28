@@ -5,7 +5,8 @@
 {"Id": "1C","Type": 234,"Status": 1,"Misc": ""}	,
 {"Id": "1D","Type": 104,"Status": 0,"Misc": ""} ,
 {"Id": "1E","Type": 204,"Status": 0,"Misc": ""},
-{"Id": "1F","Type": 208,"Status": 0,"Misc": ""}],
+{"Id": "1F","Type": 208,"Status": 0,"Misc": ""},
+{"Id": "1G","Type": 301,"Status": 0,"Misc": ""}],
 
 "Lesson-2": [
 {"Id": "2A","Type": 101,"Status": 1,"Misc": ""}	,
@@ -13,7 +14,8 @@
 {"Id": "2C","Type": 234,"Status": 1,"Misc": ""}	,
 {"Id": "2D","Type": 104,"Status": 0,"Misc": ""} ,
 {"Id": "2E","Type": 204,"Status": 0,"Misc": ""},
-{"Id": "2F","Type": 208,"Status": 0,"Misc": ""}],
+{"Id": "2F","Type": 208,"Status": 0,"Misc": ""},
+{"Id": "2G","Type": 301,"Status": 0,"Misc": ""}],
 
 "Lesson-3": [
 {"Id": "3A","Type": 101,"Status": 1,"Misc": ""}	,
@@ -21,7 +23,8 @@
 {"Id": "3C","Type": 234,"Status": 1,"Misc": ""}	,
 {"Id": "3D","Type": 104,"Status": 0,"Misc": ""} ,
 {"Id": "3E","Type": 204,"Status": 0,"Misc": ""},
-{"Id": "3F","Type": 208,"Status": 0,"Misc": ""}],
+{"Id": "3F","Type": 208,"Status": 0,"Misc": ""},
+{"Id": "3G","Type": 301,"Status": 0,"Misc": ""}],
 
 "Lesson-4": [
 {"Id": "4A","Type": 101,"Status": 1,"Misc": ""}	,
@@ -29,5 +32,6 @@
 {"Id": "4C","Type": 234,"Status": 1,"Misc": ""}	,
 {"Id": "4D","Type": 104,"Status": 0,"Misc": ""} ,
 {"Id": "4E","Type": 204,"Status": 0,"Misc": ""},
-{"Id": "4F","Type": 208,"Status": 0,"Misc": ""}]
+{"Id": "4F","Type": 208,"Status": 0,"Misc": ""},
+{"Id": "4G","Type": 301,"Status": 0,"Misc": ""}]
 }

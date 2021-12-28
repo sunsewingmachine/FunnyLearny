@@ -8,11 +8,14 @@
     <string name="ui_label_matchPairs">MatchPairs</string>
     <string name="ui_label_true_or_false_question">TrueOrFalseQuestion</string>
     <string name="ui_label_result">Result</string>
+    <string name="ui_label_font">Font</string>
+    <string name="ui_label_themes_colors">Themes And Colors</string>
     <string name="ui_label_arrange_words">Arrange Words</string>
     <string name="ui_label_sentencer">Sentencer</string>
     <string name="ui_label_meaning_contest">Meaning Contest</string>
     <string name="check_now">CheckNow</string>
     <string name="submit">Submit</string>
+    <string name="waiting">Waiting.....</string>
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="reason_text">Your answer is Wrong. Reason is</string>
@@ -23,7 +26,13 @@
     <string name="player_one">Player 1</string>
     <string name="player_two">Player 2</string>
     <string name="initial_score" formatted="true">Score : %1s</string>
-    <string name="player_two_correct_answer">Player 2 Chosen Correct Answer.</string>
-    <string name="player_two_wrong_answer">Player 2 Chosen Wrong Answer.</string>
+    <string name="player_one_correct_answer">Chosen Correct Answer.</string>
+    <string name="player_one_wrong_answer">Chosen Wrong Answer.</string>
+    <string name="player_two_correct_answer">Chosen Correct Answer.</string>
+    <string name="player_two_wrong_answer">Chosen Wrong Answer.</string>
     <string name="start">Start</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    <string name="selected_color_set">Selected Color set</string>
+    <string name="select_the_font">Select the font</string>
 </resources>

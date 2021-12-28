@@ -18,7 +18,10 @@ import kotlin.collections.ArrayList
 import kotlin.random.Random
 import android.animation.ObjectAnimator
 import android.animation.AnimatorSet
+import android.app.AlertDialog
 import android.util.Log
+import com.local.funnylearny.ui.quiz.Quiz
+import kotlinx.android.synthetic.main.fragment_quiz.*
 
 
 class MeaningContestFragment : Fragment() {
@@ -52,6 +55,7 @@ class MeaningContestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
+        showAlertDialog()
 
         meaningContestList.add(
             MeaningContest(
@@ -78,35 +82,27 @@ class MeaningContestFragment : Fragment() {
         bindDataOnViews(count)
         playerOneScore.text = context?.getString(R.string.initial_score,"0")
         playerTwoScore.text = context?.getString(R.string.initial_score,"0")
-        start.setOnClickListener {
-            mCountDownTimer?.start()
-            it.visibility = View.GONE
-        }
 
         meaningContestOptionOneCardView.setOnClickListener {
-            if (!isAnswerSelected)
+            if(!isAnswerSelected)
                 checkAnswer(1, count ,meaningContestList)
         }
 
         meaningContestOptionTwoCardView.setOnClickListener {
-            if (!isAnswerSelected)
-                checkAnswer(2, count, meaningContestList)
+            if(!isAnswerSelected)
+            checkAnswer(2, count, meaningContestList)
         }
 
         meaningContestOptionThreeCardView.setOnClickListener {
-            if (!isAnswerSelected)
-                checkAnswer(3, count, meaningContestList)
+            if(!isAnswerSelected)
+            checkAnswer(3, count, meaningContestList)
         }
 
         meaningContestOptionFourCardView.setOnClickListener {
-            if (!isAnswerSelected)
-                checkAnswer(4, count, meaningContestList)
+            if(!isAnswerSelected)
+            checkAnswer(4, count, meaningContestList)
         }
-
-
-
         prepareOpponentAndStart()
-
     }
 
     private fun prepareOpponentAndStart() {
@@ -131,7 +127,6 @@ class MeaningContestFragment : Fragment() {
                 val rms = randomMilliSec * 10
                 Log.i("startCountDownTimerWork","$pb $rms")
                 if (rms == pb) {
-                    meaningContestRandomText.visibility = View.VISIBLE
                     if (meaningContestList[count].answer == randomElement) {
                         player2Score += if(randomMilliSec < 5) {
                             10
@@ -139,9 +134,9 @@ class MeaningContestFragment : Fragment() {
                             5
                         }
                         playerTwoScore.text = context?.getString(R.string.initial_score,player2Score.toString())
-                        meaningContestRandomText.text = context?.getString(R.string.player_two_correct_answer)
+                        meaningContestPlayerTwoRandomText.text = context?.getString(R.string.player_two_correct_answer)
                     } else {
-                        meaningContestRandomText.text = context?.getString(R.string.player_two_wrong_answer)
+                        meaningContestPlayerTwoRandomText.text = context?.getString(R.string.player_two_wrong_answer)
                     }
                 }
             }
@@ -149,8 +144,26 @@ class MeaningContestFragment : Fragment() {
             override fun onFinish() {
                 meaningContestProgressBar.progress = 100
                 startNextQuestion()
+                mCountDownTimer?.start()
+                meaningContestPlayerTwoRandomText.text = context?.getString(R.string.waiting)
+                meaningContestPlayerOneRandomText.text = context?.getString(R.string.waiting)
             }
         }
+    }
+
+    private fun showAlertDialog(){
+        val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
+            .setMessage("Let's Start")
+            .setCancelable(false)
+            .setPositiveButton("START") { _, _ ->
+               mCountDownTimer?.start()
+            }
+
+        val dialog = dialogBuilder.create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(),R.color.alertDialogButtonColor))
+        }
+        dialog.show()
     }
 
     private fun startNextQuestion() {
@@ -159,7 +172,8 @@ class MeaningContestFragment : Fragment() {
             bindDataOnViews(++count)
         } else {
             resultLayout.visibility = View.VISIBLE
-            meaningContestRandomText.visibility = View.GONE
+            meaningContestPlayerTwoRandomText.text = context?.getString(R.string.waiting)
+            meaningContestPlayerOneRandomText.text = context?.getString(R.string.waiting)
             if(player1Score > player2Score) {
                 resultImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.win))
             } else {
@@ -182,11 +196,9 @@ class MeaningContestFragment : Fragment() {
         setTransparentBackground(meaningContestOptionTwoCardView)
         setTransparentBackground(meaningContestOptionThreeCardView)
         setTransparentBackground(meaningContestOptionFourCardView)
-        meaningContestRandomText.visibility = View.GONE
         isAnswerSelected = false
         if (count != 0) {
             prepareOpponentAndStart()
-            mCountDownTimer?.start()
         }
     }
 
@@ -213,24 +225,16 @@ class MeaningContestFragment : Fragment() {
         )
     }
 
-    private fun checkAnswer(
-        currentPosition: Int,
-        count: Int,
-        meaningContestList: ArrayList<MeaningContest>
-    ) {
+    private fun checkAnswer(currentPosition: Int, count: Int, meaningContestList: ArrayList<MeaningContest>) {
         isAnswerSelected = true
-        if (meaningContestList[count].answer == getOption(
-                currentPosition,
-                meaningContestList,
-                count
-            )
-        ) {
+        if (meaningContestList[count].answer == getOption(currentPosition, meaningContestList, count)) {
             player1Score += if((meaningContestProgressBar.progress/10) < 5) {
                 10
             } else {
                 5
             }
             playerOneScore.text = context?.getString(R.string.initial_score,player1Score.toString())
+            meaningContestPlayerOneRandomText.text = context?.getString(R.string.player_one_correct_answer)
             getOptionCardView(currentPosition).setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
@@ -238,20 +242,14 @@ class MeaningContestFragment : Fragment() {
                 )
             )
         } else {
-            getOptionCardView(currentPosition).setBackgroundColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.wrongAnswer
-                )
-            )
+            meaningContestPlayerOneRandomText.text = context?.getString(R.string.player_one_wrong_answer)
+            getOptionCardView(currentPosition).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.wrongAnswer))
         }
     }
 
-    private fun getOption(
-        currentPosition: Int,
-        meaningContestList: ArrayList<MeaningContest>,
-        count: Int
-    ): String {
+
+
+    private fun getOption(currentPosition: Int, meaningContestList: ArrayList<MeaningContest>, count: Int): String {
         return when (currentPosition) {
             1 -> meaningContestList[count].optionOne
             2 -> meaningContestList[count].optionTwo

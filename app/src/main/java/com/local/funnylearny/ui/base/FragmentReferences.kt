@@ -14,6 +14,7 @@ object FragmentReferences {
             TRUE_OR_FALSE_QUESTION -> activity.openTrueOrFalseQuestionFragment()
             SENTENCER -> activity.openSentencerFragment()
             MEANING_CONTEST -> activity.openMeaningContestFragment()
+            THEMES_AND_COLORS -> activity.openThemesAndColorsFragment()
         }
 
     }
@@ -25,4 +26,5 @@ object FragmentReferences {
     private const val TRUE_OR_FALSE_QUESTION = 104
     private const val SENTENCER  = 204
     private const val MEANING_CONTEST = 208
+    private const val THEMES_AND_COLORS = 301
 }
