@@ -19,9 +19,20 @@ import kotlin.random.Random
 import android.animation.ObjectAnimator
 import android.animation.AnimatorSet
 import android.app.AlertDialog
+import android.os.Handler
+import android.text.Spannable
 import android.util.Log
 import com.local.funnylearny.ui.quiz.Quiz
 import kotlinx.android.synthetic.main.fragment_quiz.*
+
+import android.widget.TextView
+
+import android.text.style.ForegroundColorSpan
+
+import android.text.style.RelativeSizeSpan
+
+import android.text.SpannableString
+import kotlinx.android.synthetic.main.result_list_item.*
 
 
 class MeaningContestFragment : Fragment() {
@@ -102,6 +113,7 @@ class MeaningContestFragment : Fragment() {
             if(!isAnswerSelected)
             checkAnswer(4, count, meaningContestList)
         }
+        timerTextView.text = getSpannedSec("10s")
         prepareOpponentAndStart()
     }
 
@@ -118,11 +130,20 @@ class MeaningContestFragment : Fragment() {
         startCountDownTimerWork(randomElement, randomMilliSec)
     }
 
+    private fun getSpannedSec(string : String) : Spannable {
+        val ss1 = SpannableString(string)
+        ss1.setSpan(null, 0, 1, 0) // set color
+        return ss1
+    }
+
 
     private fun startCountDownTimerWork(randomElement: String, randomMilliSec: Int) {
         mCountDownTimer = object : CountDownTimer(10000, 1000) {
+            var countDown = 10
             override fun onTick(millisUntilFinished: Long) {
                 meaningContestProgressBar.progress += 10
+                timerTextView.text = getSpannedSec((countDown - 1).toString().plus("s"))
+                countDown--
                 val pb = meaningContestProgressBar.progress
                 val rms = randomMilliSec * 10
                 Log.i("startCountDownTimerWork","$pb $rms")
@@ -143,8 +164,9 @@ class MeaningContestFragment : Fragment() {
 
             override fun onFinish() {
                 meaningContestProgressBar.progress = 100
+                countDown = 10
                 startNextQuestion()
-                mCountDownTimer?.start()
+                timerTextView.text = getSpannedSec("10s")
                 meaningContestPlayerTwoRandomText.text = context?.getString(R.string.waiting)
                 meaningContestPlayerOneRandomText.text = context?.getString(R.string.waiting)
             }
@@ -169,17 +191,22 @@ class MeaningContestFragment : Fragment() {
     private fun startNextQuestion() {
         if (count != meaningContestList.size - 1) {
             doFadeInAndOutAnimation(questionLayout,questionLayout)
+            Handler().postDelayed({
+                mCountDownTimer?.start()
+            },500)
             bindDataOnViews(++count)
         } else {
             resultLayout.visibility = View.VISIBLE
-            meaningContestPlayerTwoRandomText.text = context?.getString(R.string.waiting)
-            meaningContestPlayerOneRandomText.text = context?.getString(R.string.waiting)
+
             if(player1Score > player2Score) {
                 resultImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.win))
             } else {
                 resultImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.lose))
             }
             doFadeInAndOutAnimation(questionLayout,resultLayout)
+            questionLayout.visibility = View.GONE
+            meaningContestPlayerTwoRandomText.visibility = View.GONE
+            meaningContestPlayerOneRandomText.visibility = View.GONE
         }
     }
 
@@ -214,6 +241,7 @@ class MeaningContestFragment : Fragment() {
         mAnimationSet.play(fadeIn).after(fadeOut)
 
         mAnimationSet.start()
+
     }
 
     private fun setTransparentBackground(cardView: MaterialCardView) {
@@ -244,10 +272,24 @@ class MeaningContestFragment : Fragment() {
         } else {
             meaningContestPlayerOneRandomText.text = context?.getString(R.string.player_one_wrong_answer)
             getOptionCardView(currentPosition).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.wrongAnswer))
+            val cardView = getCorrectAnswerCardView(meaningContestList[count])
+            cardView.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.correctAnswer
+                )
+            )
         }
     }
 
-
+    private fun getCorrectAnswerCardView(meaningContest: MeaningContest) : MaterialCardView {
+        return when(meaningContest.answer) {
+            meaningContest.optionOne -> meaningContestOptionOneCardView
+            meaningContest.optionTwo -> meaningContestOptionTwoCardView
+            meaningContest.optionThree -> meaningContestOptionThreeCardView
+            else -> meaningContestOptionFourCardView
+        }
+    }
 
     private fun getOption(currentPosition: Int, meaningContestList: ArrayList<MeaningContest>, count: Int): String {
         return when (currentPosition) {

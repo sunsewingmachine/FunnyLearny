@@ -47,54 +47,53 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/playerOne"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_16dp"
-                    app:cardBackgroundColor="#82B1D6"
-                    app:strokeColor="@color/strokeColor"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/playerOne"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/dimen_8dp"
-                        android:orientation="vertical">
+                        android:layout_margin="@dimen/dimen_16dp"
+                        app:cardBackgroundColor="#82B1D6"
+                        app:strokeColor="@color/strokeColor"
+                        app:strokeWidth="1dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/playerOneImage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/dimen_8dp"
-                            android:src="@drawable/ic_baseline_person_24" />
-
-                        <TextView
-                            android:id="@+id/playerOneText"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/dimen_8dp"
-                            android:text="@string/player_one" />
+                            android:orientation="vertical">
 
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/playerOneImage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dimen_8dp"
+                                android:src="@drawable/ic_baseline_person_24" />
+
+                            <TextView
+                                android:id="@+id/playerOneText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/dimen_8dp"
+                                android:text="@string/player_one" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <TextView
                         android:id="@+id/playerOneScore"
-                        android:text="@string/initial_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
@@ -135,10 +134,10 @@
 
                     <TextView
                         android:id="@+id/playerTwoScore"
-                        android:text="@string/initial_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:text="@string/initial_score" />
 
                 </LinearLayout>
 
@@ -148,60 +147,82 @@
                 android:id="@+id/meaningContestPlayerOneRandomText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_16dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/waiting"
-                android:layout_margin="@dimen/dimen_16dp"
                 app:layout_constraintStart_toStartOf="@id/playerLayout"
-                app:layout_constraintTop_toBottomOf="@id/playerLayout"/>
+                app:layout_constraintTop_toBottomOf="@id/playerLayout" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/meaningContestPlayerTwoRandomText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_16dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/waiting"
-                android:layout_margin="@dimen/dimen_16dp"
                 app:layout_constraintEnd_toEndOf="@id/playerLayout"
-                app:layout_constraintTop_toBottomOf="@id/playerLayout"/>
+                app:layout_constraintTop_toBottomOf="@id/playerLayout" />
 
-            <ProgressBar
-                android:id="@+id/meaningContestProgressBar"
-                style="@style/CustomProgressBarHorizontal"
+            <LinearLayout
+                android:id="@+id/timerContainerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp"
-                android:indeterminate="false"
-                android:max="100"
-                android:minWidth="@dimen/dimen_16dp"
-                android:minHeight="@dimen/dimen_16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/meaningContestPlayerTwoRandomText" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                app:layout_constraintTop_toBottomOf="@id/meaningContestPlayerTwoRandomText">
+
+                <ProgressBar
+                    android:id="@+id/meaningContestProgressBar"
+                    style="@style/CustomProgressBarHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16dp"
+                    android:layout_weight="3.7"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:minWidth="@dimen/dimen_16dp"
+                    android:minHeight="@dimen/dimen_16dp"
+                    android:padding="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/meaningContestPlayerTwoRandomText" />
+
+                <TextView
+                    android:id="@+id/timerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_weight="0.3" />
+
+
+            </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/resultLayout"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/meaningContestProgressBar">
+                app:layout_constraintTop_toBottomOf="@id/timerContainerView">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/resultImageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="24dp"/>
+                    android:layout_marginTop="24dp" />
 
             </FrameLayout>
 
             <LinearLayout
+                android:id="@+id/questionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/questionLayout"
                 android:layout_margin="@dimen/dimen_16dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/meaningContestProgressBar">
+                app:layout_constraintTop_toBottomOf="@id/timerContainerView">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/meaningContestQuestionText"
