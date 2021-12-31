@@ -8,6 +8,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.290625" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/drawable/ic_round_arrow_back_24.xml" value="0.290625" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/drawable/speaker.xml" value="0.290625" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/contest_image_layout.xml" value="0.2391304347826087" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_font.xml" value="0.24818840579710144" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_funny_learny.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_learning_english.xml" value="0.2563405797101449" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_match_pairs.xml" value="0.25905797101449274" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_meaning_contest.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_quiz.xml" value="0.2563405797101449" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_result.xml" value="0.25226449275362317" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_sentencer.xml" value="0.25226449275362317" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_themes__colors.xml" value="0.24818840579710144" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/fragment_true_or_false_question.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/learning_english_list_item.xml" value="0.2563405797101449" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/result_list_item.xml" value="0.25226449275362317" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/sentencer_list_item.xml" value="0.25226449275362317" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/themes_and_colors_list_item.xml" value="0.24818840579710144" />
+        <entry key="..\:/Users/prasa/StudioProjects/FunnyLearnyTesting/app/src/main/res/layout/true_or_false_question_list_item.xml" value="0.25226449275362317" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_funny_learny.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_lesson_list.xml" value="0.24013157894736842" />

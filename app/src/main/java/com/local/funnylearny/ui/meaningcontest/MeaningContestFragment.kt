@@ -19,6 +19,7 @@ import kotlin.random.Random
 import android.animation.ObjectAnimator
 import android.animation.AnimatorSet
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Handler
 import android.text.Spannable
 import android.util.Log
@@ -32,6 +33,8 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 
 import android.text.SpannableString
+import android.view.Gravity
+import android.widget.Button
 import kotlinx.android.synthetic.main.result_list_item.*
 
 
@@ -66,7 +69,6 @@ class MeaningContestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
-        showAlertDialog()
 
         meaningContestList.add(
             MeaningContest(
@@ -115,6 +117,7 @@ class MeaningContestFragment : Fragment() {
         }
         timerTextView.text = getSpannedSec("10s")
         prepareOpponentAndStart()
+        showAlertDialog()
     }
 
     private fun prepareOpponentAndStart() {
@@ -174,18 +177,18 @@ class MeaningContestFragment : Fragment() {
     }
 
     private fun showAlertDialog(){
-        val dialogBuilder = AlertDialog.Builder(requireContext(),R.style.DialogSlideAnim)
-            .setMessage("Let's Start")
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setView(R.layout.contest_image_layout)
             .setCancelable(false)
             .setPositiveButton("START") { _, _ ->
                mCountDownTimer?.start()
             }
 
         val dialog = dialogBuilder.create()
-        dialog.setOnShowListener {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(),R.color.alertDialogButtonColor))
-        }
         dialog.show()
+        val button = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        button.setBackgroundColor(Color.parseColor("#FFC107"))
+        button.gravity = Gravity.CENTER
     }
 
     private fun startNextQuestion() {

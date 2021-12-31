@@ -10,6 +10,61 @@
         <item name="android:windowLightStatusBar">@bool/invertedBarEnabled</item>
     </style>
 
+    <style name="ColorOne" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#673AB7</item>
+        <item name="colorPrimaryDark">#713ECC</item>
+        <item name="colorAccent">#713ECC</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#713ECC</item>
+    </style>
+
+    <style name="ColorTwo" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#E91E63</item>
+        <item name="colorPrimaryDark">#FB3C7D</item>
+        <item name="colorAccent">#FB3C7D</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FB3C7D</item>
+    </style>
+
+    <style name="ColorThree" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FF5722</item>
+        <item name="colorPrimaryDark">#FD6C3E</item>
+        <item name="colorAccent">#FD6C3E</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FD6C3E</item>
+    </style>
+
+    <style name="ColorFour" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FFEB3B</item>
+        <item name="colorPrimaryDark">#FAEB6B</item>
+        <item name="colorAccent">#FAEB6B</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FAEB6B</item>
+    </style>
+
+    <style name="ColorFive" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#DC0E27</item>
+        <item name="colorPrimaryDark">#FB334B</item>
+        <item name="colorAccent">#FB334B</item>
+        <item name="colorSurface">@color/colorSurface</item>  
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FB334B</item>
+    </style>
+
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_up_dialog_anim</item>
         <item name="android:windowExitAnimation">@anim/slide_down_dialog_anim</item>

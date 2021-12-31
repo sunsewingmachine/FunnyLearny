@@ -32,42 +32,62 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/radioButtonLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/themesAndColorsLightButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_16dp"
-                    android:text="@string/light_theme" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/themesAndColorsDarkButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_16dp"
-                    android:text="@string/dark_theme" />
-
-
-            </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/selected_color_set"
-                android:textSize="@dimen/dimen_16dp"
-                android:layout_margin="24dp"/>
+                android:textSize="24sp"
+                android:layout_margin="@dimen/dimen_16dp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/themesAndColorsRecyclerView"
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp" />
+                android:layout_margin="@dimen/dimen_8dp"
+                android:rowCount="1"
+                android:columnCount="5">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/themesAndColorsFirstColor"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/dimen_4dp"
+                    android:backgroundTint="#673AB7">
+                </com.google.android.material.button.MaterialButton>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/themesAndColorsSecondColor"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/dimen_4dp"
+                    android:backgroundTint="#E91E63">
+                </com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/themesAndColorsThirdColor"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/dimen_4dp"
+                    android:backgroundTint="#FF5722">
+                </com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/themesAndColorsFourthColor"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/dimen_4dp"
+                    android:backgroundTint="#FFEB3B">
+                </com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/themesAndColorsFifthColor"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:backgroundTint="#DC0E27"
+                    android:layout_margin="@dimen/dimen_4dp">
+
+                </com.google.android.material.button.MaterialButton>
+
+            </GridLayout>
+
 
         </LinearLayout>
     </FrameLayout>
