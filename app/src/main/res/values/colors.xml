@@ -15,4 +15,39 @@
     <color name="tableBackground">#77182222</color>
     <color name="textColor">#000</color>
 
+    <color name="colorPrimaryBlue">#713ECC</color>
+    <color name="colorPrimaryDarkBlue">#673AB7</color>
+    <color name="colorAccentBlue">#713ECC</color>
+    <color name="colorSurfaceBlue">#FFFFFFFF</color>
+    <color name="textColorBlue">#000</color>
+    <color name="statusBarColorBlue">#713ECC</color>
+
+    <color name="colorPrimaryPink">#FB3C7D</color>
+    <color name="colorPrimaryDarkPink">#E91E63</color>
+    <color name="colorAccentPink">#FB3C7D</color>
+    <color name="colorSurfacePink">#FFFFFFFF</color>
+    <color name="textColorPink">#000</color>
+    <color name="statusBarColorPink">#FB3C7D</color>
+
+    <color name="colorPrimaryOrange">#FD6C3E</color>
+    <color name="colorPrimaryDarkOrange">#FF5722</color>
+    <color name="colorAccentOrange">#FD6C3E</color>
+    <color name="colorSurfaceOrange">#FFFFFFFF</color>
+    <color name="textColorOrange">#000</color>
+    <color name="statusBarColorOrange">#FD6C3E</color>
+
+    <color name="colorPrimaryYellow">#FAEB6B</color>
+    <color name="colorPrimaryDarkYellow">#FFEB3B</color>
+    <color name="colorAccentYellow">#FAEB6B</color>
+    <color name="colorSurfaceYellow">#FFFFFFFF</color>
+    <color name="textColorYellow">#000</color>
+    <color name="statusBarColorYellow">#FAEB6B</color>
+
+    <color name="colorPrimaryRed">#FB334B</color>
+    <color name="colorPrimaryDarkRed">#DC0E27</color>
+    <color name="colorAccentRed">#FB334B</color>
+    <color name="colorSurfaceRed">#FFFFFFFF</color>
+    <color name="textColorRed">#000</color>
+    <color name="statusBarColorRed">#FB334B</color>
+
 </resources>
