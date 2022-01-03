@@ -1,13 +1,17 @@
-package com.local.funnylearny.ui.themes_colors
+package com.local.funnylearny.ui.themes
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.local.funnylearny.R
+import com.local.funnylearny.base.BaseApplication
 import com.local.funnylearny.ui.base.FragmentInteractionListener
+import com.local.funnylearny.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_themes__colors.*
 
 
@@ -36,7 +40,8 @@ class ThemesAndColorsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initToolBar()
         themesAndColorsFirstColor.setOnClickListener {
-            requireActivity().setTheme(R.style.ColorOne)
+            BaseApplication.baseApplication.isReCreated = true
+            requireActivity().recreate()
         }
         themesAndColorsSecondColor.setOnClickListener {
             requireActivity().setTheme(R.style.ColorTwo)

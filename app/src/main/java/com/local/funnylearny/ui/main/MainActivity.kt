@@ -3,6 +3,7 @@ package com.local.funnylearny.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.local.funnylearny.R
+import com.local.funnylearny.base.BaseApplication
 import com.local.funnylearny.ui.wordarrange.WordArrangementFragment
 import com.local.funnylearny.ui.base.addFragment
 import com.local.funnylearny.domain.model.lesson.Lesson
@@ -14,7 +15,7 @@ import com.local.funnylearny.ui.matchpairs.MatchPairsFragment
 import com.local.funnylearny.ui.meaningcontest.MeaningContestFragment
 import com.local.funnylearny.ui.part.PartListFragment
 import com.local.funnylearny.ui.quiz.QuizFragment
-import com.local.funnylearny.ui.themes_colors.ThemesAndColorsFragment
+import com.local.funnylearny.ui.themes.ThemesAndColorsFragment
 import com.local.funnylearny.ui.trueorfalsequestion.ResultFragment
 import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestion
 import com.local.funnylearny.ui.trueorfalsequestion.TrueOrFalseQuestionFragment
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() ,
     ThemesAndColorsFragment.ThemesAndColorsFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if(BaseApplication.baseApplication.isReCreated) {
+            setTheme(R.style.ColorOne)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if(savedInstanceState == null) {

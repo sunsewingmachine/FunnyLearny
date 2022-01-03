@@ -1,9 +1,12 @@
 package com.local.funnylearny.base
 
 import android.app.Application
+import com.local.funnylearny.R
 
 
 class BaseApplication : Application() {
+
+    var isReCreated = false
 
     override fun onCreate() {
         super.onCreate()
