@@ -34,7 +34,13 @@ class MainActivity : AppCompatActivity() ,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if(BaseApplication.baseApplication.isReCreated) {
-            setTheme(R.style.ColorOne)
+            when(click) {
+                1 -> setTheme(R.style.ColorOne)
+                2 -> setTheme(R.style.ColorTwo)
+                3 -> setTheme(R.style.ColorThree)
+                4 -> setTheme(R.style.ColorFour)
+                5 -> setTheme(R.style.ColorFive)
+            }
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

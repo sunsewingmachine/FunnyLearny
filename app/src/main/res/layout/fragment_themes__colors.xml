@@ -48,39 +48,39 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/themesAndColorsFirstColor"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="@dimen/dimen_4dp"
                     android:backgroundTint="#673AB7">
                 </com.google.android.material.button.MaterialButton>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/themesAndColorsSecondColor"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="@dimen/dimen_4dp"
                     android:backgroundTint="#E91E63">
                 </com.google.android.material.button.MaterialButton>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/themesAndColorsThirdColor"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="@dimen/dimen_4dp"
                     android:backgroundTint="#FF5722">
                 </com.google.android.material.button.MaterialButton>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/themesAndColorsFourthColor"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="@dimen/dimen_4dp"
                     android:backgroundTint="#FFEB3B">
                 </com.google.android.material.button.MaterialButton>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/themesAndColorsFifthColor"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:backgroundTint="#DC0E27"
                     android:layout_margin="@dimen/dimen_4dp">
 

@@ -1,8 +1,6 @@
 package com.local.funnylearny.ui.themes
 
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,13 +9,13 @@ import android.view.ViewGroup
 import com.local.funnylearny.R
 import com.local.funnylearny.base.BaseApplication
 import com.local.funnylearny.ui.base.FragmentInteractionListener
-import com.local.funnylearny.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_themes__colors.*
 
 
 class ThemesAndColorsFragment : Fragment() {
 
     private var themesAndColorsFragmentInteractionListener : ThemesAndColorsFragmentInteractionListener? = null
+    private var click : Int = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,20 +38,29 @@ class ThemesAndColorsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initToolBar()
         themesAndColorsFirstColor.setOnClickListener {
+            click = 1
             BaseApplication.baseApplication.isReCreated = true
             requireActivity().recreate()
         }
         themesAndColorsSecondColor.setOnClickListener {
-            requireActivity().setTheme(R.style.ColorTwo)
+            click = 2
+            BaseApplication.baseApplication.isReCreated = true
+            requireActivity().recreate()
         }
         themesAndColorsThirdColor.setOnClickListener {
-            requireActivity().setTheme(R.style.ColorThree)
+            click = 3
+            BaseApplication.baseApplication.isReCreated = true
+            requireActivity().recreate()
         }
         themesAndColorsFourthColor.setOnClickListener {
-            requireActivity().setTheme(R.style.ColorFour)
+            click = 4
+            BaseApplication.baseApplication.isReCreated = true
+            requireActivity().recreate()
         }
         themesAndColorsFifthColor.setOnClickListener {
-            requireActivity().setTheme(R.style.ColorFive)
+            click = 5
+            BaseApplication.baseApplication.isReCreated = true
+            requireActivity().recreate()
         }
     }
 
@@ -63,7 +70,8 @@ class ThemesAndColorsFragment : Fragment() {
         }
     }
 
-    interface ThemesAndColorsFragmentInteractionListener : FragmentInteractionListener
+    interface ThemesAndColorsFragmentInteractionListener : FragmentInteractionListener {
+    }
 
     companion object {
 
